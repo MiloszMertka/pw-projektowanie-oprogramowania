@@ -1,0 +1,8 @@
+vaadin:
+  launch-browser: true
+spring:
+  application:
+    name: catering
+  docker:
+    compose:
+      file: docker-compose.yml
