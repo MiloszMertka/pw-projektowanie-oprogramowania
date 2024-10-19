@@ -2,11 +2,17 @@ package pl.edu.pw.ee.catering.model.meal.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Meal {
 
     @Id
@@ -28,6 +34,12 @@ public class Meal {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Ingredient> ingredients;
+
+    @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
+    private boolean availability;
+
+    @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
+    private String description;
 
     @Override
     public int hashCode() {
