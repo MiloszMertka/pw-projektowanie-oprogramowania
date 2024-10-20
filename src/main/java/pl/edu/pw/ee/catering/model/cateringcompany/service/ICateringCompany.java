@@ -13,5 +13,6 @@ public interface ICateringCompany {
     void editMeal(MealDetails mealDetails);
 
     void deleteMeal(Long id);
+
     MealList showMealList(Long id);
 }

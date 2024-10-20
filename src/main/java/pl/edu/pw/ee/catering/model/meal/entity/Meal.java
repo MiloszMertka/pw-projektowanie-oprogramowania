@@ -41,7 +41,8 @@ public class Meal {
     @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
     private String description;
 
-    @Column(nullable = false)
+    /// Since there will be only 1 company (due to no authentication) it should be set to always one number
+    @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
     private Long companyId;
 
     @Override

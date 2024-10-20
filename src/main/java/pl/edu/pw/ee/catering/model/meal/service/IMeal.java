@@ -13,5 +13,7 @@ public interface IMeal {
     void editMeal(MealDetails mealDetails);
 
     void deleteMeal(Long id);
+
+    /// Since there will be only 1 company (due to no authentication) it should be set to always one number
     MealList getMealList(Long id);
 }
