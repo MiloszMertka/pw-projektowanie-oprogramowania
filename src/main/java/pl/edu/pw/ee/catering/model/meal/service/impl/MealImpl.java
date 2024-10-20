@@ -3,6 +3,7 @@ package pl.edu.pw.ee.catering.model.meal.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
+import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.repository.MealRepository;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
@@ -23,6 +24,11 @@ class MealImpl implements IMeal {
         mealRepository.deleteById(id);
     }
 
+    @Override
+    public MealList getMealList(Long id) {
+        return new MealList(mealRepository.findAllByCompanyId(id));
+    }
+
     private void validateMealExists(Long id) {
         if (!mealRepository.existsById(id)) {
             throw new IllegalArgumentException("Meal with id " + id + " does not exist");
@@ -38,6 +44,7 @@ class MealImpl implements IMeal {
                 .ingredients(mealDetails.getIngredients())
                 .availability(mealDetails.isAvailability())
                 .description(mealDetails.getDescription())
+                .companyId(mealDetails.getCompanyId())
                 .build();
     }
 }

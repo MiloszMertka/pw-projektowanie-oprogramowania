@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.ee.catering.model.cateringcompany.service.ICateringCompany;
 import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
+import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 
 @Service
@@ -19,5 +20,10 @@ public class CateringCompanyImpl implements ICateringCompany {
     @Override
     public void deleteMeal(Long id) {
         meal.deleteMeal(id);
+    }
+
+    @Override
+    public MealList showMealList(Long id) {
+        return meal.getMealList(id);
     }
 }

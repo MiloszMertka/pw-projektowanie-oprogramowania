@@ -41,6 +41,9 @@ public class Meal {
     @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
     private String description;
 
+    @Column(nullable = false)
+    private Long companyId;
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
