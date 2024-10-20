@@ -54,6 +54,7 @@ class MealImpl implements IMeal {
         meal.setImage(mealDetails.getImage());
         meal.setIngredients(mealDetails.getIngredients());
         meal.setAvailability(mealDetails.isAvailability());
+        meal.setCompanyId(mealDetails.getCompanyId());
         meal.setDescription(mealDetails.getDescription());
     }
 
