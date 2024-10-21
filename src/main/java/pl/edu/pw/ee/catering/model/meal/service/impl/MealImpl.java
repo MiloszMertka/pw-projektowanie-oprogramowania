@@ -35,7 +35,6 @@ class MealImpl implements IMeal {
 
     @Override
     public void editMeal(MealDetails mealDetails) {
-        validateMealExists(mealDetails.getId());
         Meal meal = getMealById(mealDetails.getId());
         editMeal(meal, mealDetails);
         mealRepository.save(meal);
