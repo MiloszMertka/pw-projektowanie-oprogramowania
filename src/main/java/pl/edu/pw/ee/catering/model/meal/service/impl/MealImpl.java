@@ -13,14 +13,41 @@ class MealImpl implements IMeal {
     private final MealRepository mealRepository;
 
     @Override
+    public Meal getMeal(long id) {
+        return getMealById(id);
+    }
+
+    private Meal getMealById(long id) {
+        return mealRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public void createMeal(MealDetails meal) {
         Meal newMeal = mapMealDetailsToEntity(meal);
         mealRepository.save(newMeal);
     }
 
+    @Override
     public void deleteMeal(Long id) {
         validateMealExists(id);
         mealRepository.deleteById(id);
+    }
+
+    @Override
+    public void editMeal(MealDetails mealDetails) {
+        Meal meal = getMealById(mealDetails.getId());
+        editMeal(meal, mealDetails);
+        mealRepository.save(meal);
+    }
+
+    private void editMeal(Meal meal, MealDetails mealDetails) {
+        meal.setName(mealDetails.getName());
+        meal.setCaloricity(mealDetails.getCaloricity());
+        meal.setPrice(mealDetails.getPrice());
+        meal.setImage(mealDetails.getImage());
+        meal.setIngredients(mealDetails.getIngredients());
+        meal.setAvailability(mealDetails.isAvailability());
+        meal.setDescription(mealDetails.getDescription());
     }
 
     private void validateMealExists(Long id) {
