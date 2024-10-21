@@ -3,6 +3,7 @@ package pl.edu.pw.ee.catering.model.meal.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
+import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.repository.MealRepository;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
@@ -34,6 +35,11 @@ class MealImpl implements IMeal {
     }
 
     @Override
+    public MealList getMealList(Long id) {
+        return new MealList(mealRepository.findAllByCompanyId(id));
+    }
+
+    @Override
     public void editMeal(MealDetails mealDetails) {
         Meal meal = getMealById(mealDetails.getId());
         editMeal(meal, mealDetails);
@@ -47,6 +53,7 @@ class MealImpl implements IMeal {
         meal.setImage(mealDetails.getImage());
         meal.setIngredients(mealDetails.getIngredients());
         meal.setAvailability(mealDetails.isAvailability());
+        meal.setCompanyId(mealDetails.getCompanyId());
         meal.setDescription(mealDetails.getDescription());
     }
 
@@ -65,6 +72,7 @@ class MealImpl implements IMeal {
                 .ingredients(mealDetails.getIngredients())
                 .availability(mealDetails.isAvailability())
                 .description(mealDetails.getDescription())
+                .companyId(mealDetails.getCompanyId())
                 .build();
     }
 }
