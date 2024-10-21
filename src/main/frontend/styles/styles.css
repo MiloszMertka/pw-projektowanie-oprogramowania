@@ -1,0 +1,14 @@
+:root {
+    --primary-color: #7038b1;
+}
+
+.primary-color {
+    color: var(--primary-color);
+}
+
+.secondary-button {
+    border: solid gray;
+    color: gray;
+    background-color: white;
+    width: 100%;
+}
