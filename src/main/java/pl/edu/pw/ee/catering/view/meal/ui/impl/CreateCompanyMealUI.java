@@ -2,7 +2,6 @@ package pl.edu.pw.ee.catering.view.meal.ui.impl;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -19,24 +18,24 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
 import pl.edu.pw.ee.catering.model.meal.entity.Image;
-import pl.edu.pw.ee.catering.model.meal.entity.Ingredient;
 import pl.edu.pw.ee.catering.model.meal.entity.Price;
+import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICreateMealUC;
 
-import java.util.ArrayList;
 import java.util.Currency;
-import java.util.List;
 
 @UIScope
 @SpringComponent
 @Route("create-new-meal-form")
-public class CreateMealFormComponent extends VerticalLayout {
+public class CreateCompanyMealUI extends VerticalLayout {
     private final VerticalLayout addForm;
     private final ICreateMealUC createMealUC;
+    private final ICateringCompanyRouter router;
     private boolean formsActive = false;
     private final MemoryBuffer buffer = new MemoryBuffer();
 
-    public CreateMealFormComponent(ICreateMealUC createMealUC){
+    public CreateCompanyMealUI(ICreateMealUC createMealUC, ICateringCompanyRouter router){
+        this.router = router;
         this.createMealUC = createMealUC;
         addForm = new VerticalLayout();
 
@@ -83,20 +82,20 @@ public class CreateMealFormComponent extends VerticalLayout {
 
             addButton.addClickListener( buttonClickEvent -> {
 
-                MealDetails mealDetails = (MealDetails) new MealDetails().builder()
-                        .name(mealName.getValue())
-                        .caloricity(mealCalories.getValue())
-                        .price(
-                                Price.builder().amount(mealCost.getValue()).currency(Currency.getInstance("PLN")).build()
-                        ).image(
-                                Image.builder().name(buffer.getFileName()).path("").build()
-                        )
-                        .description(mealDescription.getValue())
-                        .availability(true).build();
-                createMealUC.createMeal(mealDetails);
+                MealDetails mealDetails = new MealDetails();
+                mealDetails.setName(mealName.getValue());
+                mealDetails.setCaloricity(mealCalories.getValue());
+                mealDetails.setPrice( Price.builder().amount(mealCost.getValue()).currency(Currency.getInstance("PLN")).build() );
+                mealDetails.setImage( Image.builder().name(buffer.getFileName()).path("").build() );
+                mealDetails.setAvailability(true);
+                mealDetails.setDescription(mealDescription.getValue());
+
+                //createMealUC.createMeal(mealDetails);
                 addForm.remove(formLayout);
                 formsActive = false;
                 buffer.getFileName();
+                router.navigateToMealList();
+
             });
 
             //imageUploader

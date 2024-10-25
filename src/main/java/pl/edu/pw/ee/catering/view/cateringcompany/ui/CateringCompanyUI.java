@@ -17,9 +17,9 @@ public class CateringCompanyUI extends VerticalLayout {
     }
 
     private void initLayout() {
-        Button historicalOrdersButton = new Button("clic me",
+        Button createMealFormButton = new Button("Stwórz nowy posiłek",
                 event -> router.navigateToCreateMealForm());
 
-        add(historicalOrdersButton);
+        add(createMealFormButton);
     }
 }

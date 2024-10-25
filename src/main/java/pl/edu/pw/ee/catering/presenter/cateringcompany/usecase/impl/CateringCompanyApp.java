@@ -9,7 +9,8 @@ import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICreateMealUC;
-import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateMealFormComponent;
+import pl.edu.pw.ee.catering.view.cateringcompany.ui.CateringCompanyUI;
+import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.HistoricalOrderListComponent;
 
 @Component
@@ -18,7 +19,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
 
     private final ICateringCompany cateringCompany;
     private final ObjectProvider<HistoricalOrderListComponent> historicalOrderListProvider;
-    private final ObjectProvider<CreateMealFormComponent> createMealFormComponents;
+    private final ObjectProvider<CreateCompanyMealUI> createMealFormComponents;
 
     @Override
     public void navigateToHistoricalOrderList() {
@@ -35,9 +36,9 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
 
     @Override
     public void navigateToCreateMealForm() {
-        UI.getCurrent().navigate(CreateMealFormComponent.class);
+        UI.getCurrent().navigate(CreateCompanyMealUI.class);
 
-        CreateMealFormComponent createMealForm = createMealFormComponents.getIfAvailable();
+        CreateCompanyMealUI createMealForm = createMealFormComponents.getIfAvailable();
         if(createMealForm == null){
             throw new IllegalStateException("CreateMealFormComponent not found");
         }
@@ -45,6 +46,13 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
         createMealForm.showCreateMealForm();
 
 
+    }
+
+    @Override
+    public void navigateToMealList() {
+        UI.getCurrent().navigate(CateringCompanyUI.class);
+        //przenieś guzik createMealFormButton z CateringCompanyUI.class do twoje clasy
+        // będoncej widokiem MealListUI 
     }
 
     @Override
