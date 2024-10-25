@@ -2,6 +2,7 @@ package pl.edu.pw.ee.catering.model.meal.entity;
 
 import jakarta.persistence.*;
 
+
 @Entity
 public class Ingredient {
 
