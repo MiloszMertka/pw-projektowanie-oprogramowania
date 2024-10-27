@@ -52,7 +52,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
     public void navigateToMealList() {
         UI.getCurrent().navigate(CateringCompanyUI.class);
         //przenieś guzik createMealFormButton z CateringCompanyUI.class do twoje clasy
-        // będoncej widokiem MealListUI 
+        // będoncej widokiem MealListUI
     }
 
     @Override

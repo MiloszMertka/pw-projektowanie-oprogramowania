@@ -1,9 +1,13 @@
 package pl.edu.pw.ee.catering.view.meal.ui.impl;
 
+import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -53,6 +57,15 @@ public class CreateCompanyMealUI extends VerticalLayout {
             Button addButton = new Button("Dodaj");
             FormLayout formLayout = new FormLayout();
 
+            //meal Name
+            mealName.setRequired(true);
+            mealName.setInvalid(true);
+            mealName.setMinLength(1);
+            mealName.setPattern("^[a-zA-Z]+$");
+            mealName.setI18n(new TextField.TextFieldI18n()
+                    .setRequiredErrorMessage("Pole jest wymagane")
+                    .setPatternErrorMessage("Musi zawierać litery"));
+
             //meal Calories
             mealCalories.setMin(0);
             mealCalories.setI18n(new IntegerField.IntegerFieldI18n()
@@ -61,8 +74,11 @@ public class CreateCompanyMealUI extends VerticalLayout {
             //meal cost
             Div zlSuffix = new Div("zł");
             mealCost.setSuffixComponent(zlSuffix);
+            mealCost.setRequired(true);
+            mealCost.setInvalid(true);
             mealCost.setMin(0.01);
             mealCost.setStep(0.01);
+            mealCost.setRequired(true);
             mealCost.setI18n(new NumberField.NumberFieldI18n()
                     .setMinErrorMessage("Koszt musi być większy od zera")
                     .setStepErrorMessage("Dokładność jest co do grosza"));
@@ -82,6 +98,17 @@ public class CreateCompanyMealUI extends VerticalLayout {
 
             addButton.addClickListener( buttonClickEvent -> {
 
+
+
+                if( mealCost.isInvalid()|| mealName.isInvalid()){
+                    Notification notification = Notification.show("Pola są niepoprawnie wypełnione.");
+                    notification.setDuration(3000);
+                    notification.addThemeVariants(NotificationVariant.LUMO_ERROR); // Ustawienie stylu jako "błąd"
+
+                    // Ustawienie pozycji poniżej przycisku
+                    notification.setPosition(Notification.Position.TOP_CENTER);
+                    return;
+                }
                 MealDetails mealDetails = new MealDetails();
                 mealDetails.setName(mealName.getValue());
                 mealDetails.setCaloricity(mealCalories.getValue());
