@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pw.ee.catering.model.cateringcompany.service.ICateringCompany;
 import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
+import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 
@@ -37,6 +38,10 @@ public class CateringCompanyImpl implements ICateringCompany {
 
     @Override
     public OrderList showHistoricalOrderList(Long id) {
-        return new OrderList(new ArrayList<>()); // TODO: implement
+        return new OrderList(new ArrayList<>());
+  
+    @Override
+    public MealList showMealList(Long id) {
+        return meal.getMealList(id);
     }
 }
