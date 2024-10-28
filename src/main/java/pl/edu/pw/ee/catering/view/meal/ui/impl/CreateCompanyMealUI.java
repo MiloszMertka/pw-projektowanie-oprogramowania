@@ -94,7 +94,7 @@ public class CreateCompanyMealUI extends VerticalLayout implements ICreateMealFo
             }
 
             if( ingredientsOk || mealCost.isInvalid()|| mealName.isInvalid()||
-                    mealCalories.isInvalid()){
+                    mealCalories.isInvalid() || mealDescription.isInvalid()){
                 Notification notification = Notification.show("Pola są niepoprawnie wypełnione.");
                 notification.setDuration(3000);
                 notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -210,6 +210,8 @@ public class CreateCompanyMealUI extends VerticalLayout implements ICreateMealFo
             e.getSource()
                     .setHelperText("%d/%d".formatted(e.getValue().length(), charLimit));
         });
+        mealDescription.setI18n(new TextArea.TextAreaI18n()
+                .setMaxLengthErrorMessage("Zbyt długi opis"));
     }
     private static final int Capacity = 100;
     private List<TextField> ingredientsNames = new ArrayList<>(Capacity);
