@@ -1,0 +1,19 @@
+.edit-meal-button {
+  background-color: white;
+  color: var(--primary-color);
+  font-size: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.add-meal-button {
+  background-color: purple;
+  color: white;
+  font-size: 16px;
+}
+
+.delete-meal-button {
+  background-color: white;
+  color: red;
+  font-size: 16px;
+  border: 2px solid red;
+}
