@@ -4,6 +4,7 @@ import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
+import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 
 public interface ICateringCompany {
 
@@ -16,6 +17,8 @@ public interface ICateringCompany {
     void deleteMeal(Long id);
 
     OrderList showHistoricalOrderList(Long id);
+
+    OrderWithDetails getOrderDetails(Long id);
 
     MealList showMealList(Long id);
 }

@@ -8,7 +8,10 @@ import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
+import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
+import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Service
@@ -39,6 +42,16 @@ public class CateringCompanyImpl implements ICateringCompany {
     @Override
     public OrderList showHistoricalOrderList(Long id) {
         return new OrderList(new ArrayList<>());
+    }
+
+    @Override
+    public OrderWithDetails getOrderDetails(Long id) {
+        return new OrderWithDetails(
+            id,
+            "Typical Order",
+            LocalDateTime.now().toString(),
+            OrderStatus.IN_PREPARATION
+        );
     }
 
     @Override
