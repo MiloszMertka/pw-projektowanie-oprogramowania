@@ -43,7 +43,7 @@ public class Meal {
 
     /// Since there will be only 1 company (due to no authentication) it should be set to always one number
     @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
-    private Long companyId;
+    private Long companyId = 1L;
 
     @Override
     public int hashCode() {

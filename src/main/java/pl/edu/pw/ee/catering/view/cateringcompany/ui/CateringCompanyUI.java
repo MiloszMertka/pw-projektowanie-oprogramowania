@@ -20,14 +20,6 @@ public class CateringCompanyUI extends VerticalLayout {
     }
 
     private void initLayout() {
-        Button mealListButton = new Button("Wyświetl listę własnych ofert kateringowych",
-            event -> router.navigateToMealList());
-        add(mealListButton);
-
-        Button createMealFormButton = new Button("Stwórz nowy posiłek",
-                event -> router.navigateToCreateMealForm());
-        add(createMealFormButton);
-
         Button historicalOrderListButton = new Button("Wyświetl historyczne zamówienia",
                 event -> router.navigateToHistoricalOrderList());
         add(historicalOrderListButton);
@@ -39,5 +31,13 @@ public class CateringCompanyUI extends VerticalLayout {
         Button orderDetailsButton = new Button("Przykładowe zamówienie",
                 event -> router.navigateToOrderDetails(1L));
         add(orderDetailsButton);
+
+        Button createMealFormButton = new Button("Stwórz nowy posiłek",
+                event -> router.navigateToCreateMealForm());
+        add(createMealFormButton);
+
+        Button mealListButton = new Button("Wyświetl listę własnych ofert kateringowych",
+                event -> router.navigateToMealList());
+        add(mealListButton);
     }
 }
