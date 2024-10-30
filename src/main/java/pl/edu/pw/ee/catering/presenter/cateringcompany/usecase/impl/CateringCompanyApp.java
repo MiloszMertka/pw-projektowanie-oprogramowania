@@ -9,10 +9,9 @@ import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
+import pl.edu.pw.ee.catering.presenter.meal.usecase.ICreateMealUC;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderDetails;
 import pl.edu.pw.ee.catering.view.meal.ui.CateringCompanyMealUI;
-import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICreateMealUC;
-import pl.edu.pw.ee.catering.view.cateringcompany.ui.CateringCompanyUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.HistoricalOrderListComponent;
 import pl.edu.pw.ee.catering.view.order.ui.impl.OrderDetailsComponent;
@@ -20,7 +19,7 @@ import pl.edu.pw.ee.catering.view.order.ui.impl.OrderListComponent;
 
 @Component
 @RequiredArgsConstructor
-public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC {
+public class CateringCompanyApp implements ICateringCompanyRouter {
 
     private final ICateringCompany cateringCompany;
     private final ObjectProvider<HistoricalOrderListComponent> historicalOrderListProvider;
@@ -92,15 +91,4 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
         createMealForm.showCreateMealForm();
     }
 
-    @Override
-    public void navigateToMealList() {
-        UI.getCurrent().navigate(CateringCompanyUI.class);
-        //przenieś guzik createMealFormButton z CateringCompanyUI.class do twoje clasy
-        // będoncej widokiem MealListUI
-    }
-
-    @Override
-    public void createMeal(MealDetails mealDetails) {
-        cateringCompany.createMeal(mealDetails);
-    }
 }

@@ -13,6 +13,7 @@ import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +42,8 @@ public class CateringCompanyImpl implements ICateringCompany {
 
     @Override
     public OrderList showHistoricalOrderList(Long id) {
-        return new OrderList(new ArrayList<>());
+        return new OrderList(Arrays.asList(new OrderWithDetails(1L, "Typical Historical Order",
+                LocalDateTime.now().toString(), OrderStatus.IN_PREPARATION)));
     }
 
     @Override
@@ -55,7 +57,8 @@ public class CateringCompanyImpl implements ICateringCompany {
     }
 
     public OrderList showOrderList(Long id) {
-        return new OrderList(new ArrayList<>());
+        return new OrderList(Arrays.asList(new OrderWithDetails(1L, "Typical Order",
+                LocalDateTime.now().toString(), OrderStatus.IN_PREPARATION)));
     }
 
     @Override
