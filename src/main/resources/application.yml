@@ -3,9 +3,6 @@ vaadin:
 spring:
   application:
     name: catering
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
   docker:
     compose:
       file: docker-compose.yml
