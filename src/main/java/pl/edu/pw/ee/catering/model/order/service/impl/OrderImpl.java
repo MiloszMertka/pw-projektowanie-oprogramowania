@@ -3,6 +3,7 @@ package pl.edu.pw.ee.catering.model.order.service.impl;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.model.order.repository.OrderRepository;
@@ -31,5 +32,10 @@ class OrderImpl implements IOrder {
     
     private void changeOrderStatus(OrderWithDetails order, OrderStatus status) {
         order.setStatus(status);
+    }
+    
+    @Override
+    public OrderList getOrderList(Long id) {
+        return new OrderList(orderRepository.findByStatusIsNotFinished(id));
     }
 }

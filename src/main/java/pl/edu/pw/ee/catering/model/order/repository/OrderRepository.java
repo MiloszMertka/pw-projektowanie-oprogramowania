@@ -10,5 +10,7 @@ import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderWithDetails, Long> {
     List<OrderWithDetails> findAllByCompanyId(Long companyId);
+    
+    List<OrderWithDetails> findByStatusIsNotFinished(Long companyId);
 }
 
