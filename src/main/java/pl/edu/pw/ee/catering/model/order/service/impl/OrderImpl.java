@@ -38,6 +38,11 @@ class OrderImpl implements IOrder {
     
     @Override
     public OrderList getOrderList(Long id) {
-        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.IN_PREPARATION)).toList());
+        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> !x.getStatus().equals(OrderStatus.FINISHED) && !x.getStatus().equals(OrderStatus.CANCELED)).toList());
+    }
+
+    @Override
+    public OrderList getHistoricalOrderList(Long id) {
+        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED)).toList());
     }
 }
