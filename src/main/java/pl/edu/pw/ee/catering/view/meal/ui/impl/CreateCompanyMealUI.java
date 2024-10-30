@@ -18,7 +18,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.UploadI18N;
 import com.vaadin.flow.component.upload.receivers.FileBuffer;
-import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
@@ -28,7 +27,7 @@ import pl.edu.pw.ee.catering.model.meal.entity.Image;
 import pl.edu.pw.ee.catering.model.meal.entity.Ingredient;
 import pl.edu.pw.ee.catering.model.meal.entity.Price;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
-import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICreateMealUC;
+import pl.edu.pw.ee.catering.presenter.meal.usecase.ICreateMealUC;
 import pl.edu.pw.ee.catering.view.meal.ui.ICreateMealForm;
 
 import java.io.File;
