@@ -17,12 +17,8 @@ class OrderImpl implements IOrder {
     
     @Override
     public OrderWithDetails getOrderWithDetails(Long id) {
-        return getOrderWithDetailsById(id);
-    }
-    
-    private OrderWithDetails getOrderWithDetailsById(Long id) {
-        var order = orderRepository.findById(id).orElseThrow();
-        return new OrderWithDetails(order.getId(), order.getName(), order.getDate(), order.getStatus());
+        var appOrder = orderRepository.findById(id).orElseThrow();
+        return mapAppOrderToOrderWithDetails(appOrder);
     }
 
     @Override
@@ -39,5 +35,14 @@ class OrderImpl implements IOrder {
     @Override
     public OrderList getOrderList(Long id) {
         return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.IN_PREPARATION)).toList());
+    }
+
+    private OrderWithDetails mapAppOrderToOrderWithDetails(AppOrder order) {
+        return OrderWithDetails.builder()
+                .id(order.getId())
+                .name(order.getName())
+                .date(order.getDate())
+                .status(order.getStatus())
+                .build();
     }
 }
