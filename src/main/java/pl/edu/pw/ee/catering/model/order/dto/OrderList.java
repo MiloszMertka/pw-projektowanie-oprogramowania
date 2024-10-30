@@ -3,6 +3,7 @@ package pl.edu.pw.ee.catering.model.order.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class OrderList {
-    private List<OrderWithDetails> orders;
+    private List<AppOrder> orders;
 }

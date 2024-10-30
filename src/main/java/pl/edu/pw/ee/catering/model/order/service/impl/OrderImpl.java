@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
+import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.model.order.repository.OrderRepository;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
 
@@ -20,22 +21,23 @@ class OrderImpl implements IOrder {
     }
     
     private OrderWithDetails getOrderWithDetailsById(Long id) {
-        return orderRepository.findById(id).orElseThrow();
+        var order = orderRepository.findById(id).orElseThrow();
+        return new OrderWithDetails(order.getId(), order.getName(), order.getDate(), order.getStatus());
     }
 
     @Override
     public void changeOrderStatus(Long id, OrderStatus status) {
-        OrderWithDetails order = getOrderWithDetailsById(id);
+        var order = orderRepository.findById(id).orElseThrow();
         changeOrderStatus(order, status);
         orderRepository.save(order);
     }
     
-    private void changeOrderStatus(OrderWithDetails order, OrderStatus status) {
+    private void changeOrderStatus(AppOrder order, OrderStatus status) {
         order.setStatus(status);
     }
     
     @Override
     public OrderList getOrderList(Long id) {
-        return new OrderList(orderRepository.findByStatusIsNotFinished(id));
+        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.IN_PREPARATION)).toList());
     }
 }

@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
-import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
+import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.view.order.ui.IHistoricalOrderList;
 
 import java.util.Collections;
@@ -24,7 +24,7 @@ import java.util.Collections;
 @CssImport("./styles/styles.css")
 @CssImport("./styles/historical-order-styles.css")
 public class HistoricalOrderListComponent extends VerticalLayout implements IHistoricalOrderList {
-    private Grid<OrderWithDetails> orderGrid;
+    private Grid<AppOrder> orderGrid;
 
     public HistoricalOrderListComponent() {
         initLayout();
@@ -33,12 +33,12 @@ public class HistoricalOrderListComponent extends VerticalLayout implements IHis
     private void initLayout() {
         H1 header = new H1("Lista zamówień historycznych:");
 
-        orderGrid = new Grid<>(OrderWithDetails.class, false);
+        orderGrid = new Grid<>(AppOrder.class, false);
         orderGrid.addClassName("custom-grid");
 
-        orderGrid.addColumn(OrderWithDetails::getName).setHeader("Nazwa zamówienia")
+        orderGrid.addColumn(AppOrder::getName).setHeader("Nazwa zamówienia")
                 .addClassName("primary-color");
-        orderGrid.addColumn(OrderWithDetails::getDate).setHeader("Data")
+        orderGrid.addColumn(AppOrder::getDate).setHeader("Data")
                 .addClassName("primary-color");
         orderGrid.addColumn((orderWithDetails) -> orderWithDetails.getStatus().getDisplayName()).setHeader("Status")
                 .addClassName("primary-color");
