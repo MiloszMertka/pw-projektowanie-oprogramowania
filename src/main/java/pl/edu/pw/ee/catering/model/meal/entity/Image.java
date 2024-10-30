@@ -6,12 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder;
 
-@Embeddable
 @Getter
 @Setter
-@AllArgsConstructor
+@Embeddable
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Image {
 
     @Column(nullable = false, name = "IMAGE_NAME")
