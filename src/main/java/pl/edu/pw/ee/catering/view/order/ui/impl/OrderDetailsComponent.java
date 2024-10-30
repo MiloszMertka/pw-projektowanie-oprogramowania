@@ -53,7 +53,7 @@ public class OrderDetailsComponent extends VerticalLayout implements IOrderDetai
         }
 
 
-        Button backButton = new Button("Powróć do zamówień", e -> getUI().ifPresent(ui -> ui.navigate("orders")));
+        Button backButton = new Button("Powróć do zamówień", e -> getUI().ifPresent(ui -> ui.navigate("")));
         add(backButton);
     }
 

@@ -36,6 +36,6 @@ class OrderImpl implements IOrder {
     
     @Override
     public OrderList getOrderList(Long id) {
-        return new OrderList(orderRepository.findAllByCompanyId(id));
+        return new OrderList(orderRepository.findByStatusIsNotFinished(id));
     }
 }

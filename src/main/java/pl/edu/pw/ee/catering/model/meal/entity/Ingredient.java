@@ -13,8 +13,6 @@ import lombok.Builder;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Ingredient {
 
     @Id
