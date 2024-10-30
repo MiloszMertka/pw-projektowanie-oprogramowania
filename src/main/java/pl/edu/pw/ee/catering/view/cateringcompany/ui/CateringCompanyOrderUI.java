@@ -20,8 +20,11 @@ public class CateringCompanyOrderUI extends VerticalLayout {
         Button ordersButton = new Button("Wyświetl zamówienia",
                 event -> router.navigateToOrderList());
 
-        add(historicalOrdersButton);
+        Button orderButton = new Button("Przykładowe zamówienie",
+            event -> router.navigateToOrderDetails(1L));
 
+        add(historicalOrdersButton);
+        add(orderButton);
         add(ordersButton);
     }
 }
