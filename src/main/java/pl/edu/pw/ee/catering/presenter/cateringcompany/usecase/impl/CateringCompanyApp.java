@@ -12,6 +12,7 @@ import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICreateMealUC;
 import pl.edu.pw.ee.catering.view.cateringcompany.ui.CateringCompanyUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.HistoricalOrderListComponent;
+import pl.edu.pw.ee.catering.view.order.ui.impl.OrderListComponent;
 
 @Component
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
 
     private final ICateringCompany cateringCompany;
     private final ObjectProvider<HistoricalOrderListComponent> historicalOrderListProvider;
+    private final ObjectProvider<OrderListComponent> orderListProvider;
     private final ObjectProvider<CreateCompanyMealUI> createMealFormComponents;
 
     @Override
@@ -32,6 +34,19 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
 
         OrderList orders = cateringCompany.showHistoricalOrderList(1L);
         historicalOrderList.showHistoricalOrderList(orders);
+    }
+
+    @Override
+    public void navigateToOrderList() {
+        UI.getCurrent().navigate(OrderListComponent.class);
+
+        OrderListComponent orderList = orderListProvider.getIfAvailable();
+        if (orderList == null) {
+            throw new IllegalStateException("OrderListComponent not found");
+        }
+
+        OrderList orders = cateringCompany.showOrderList(1L);
+        orderList.showOrderList(orders);
     }
 
     @Override
