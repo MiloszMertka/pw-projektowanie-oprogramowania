@@ -14,6 +14,7 @@ import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
+import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
 
 @Service
@@ -44,8 +45,8 @@ public class CateringCompanyImpl implements ICateringCompany {
 
     @Override
     public OrderList showHistoricalOrderList(Long id) {
-        return new OrderList(List.of(new OrderWithDetails(1L, "Typical Historical Order",
-                LocalDateTime.now().toString(), OrderStatus.IN_PREPARATION)));
+        var historicalOrder = new AppOrder(90L, "HistoricalOrder", "20-10-2020", OrderStatus.FINISHED, 1L);
+        return new OrderList(List.of(historicalOrder));
     }
 
     @Override
