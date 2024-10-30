@@ -32,7 +32,7 @@ public class Meal {
     @Embedded
     private Image image;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Ingredient> ingredients;
 
     @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
