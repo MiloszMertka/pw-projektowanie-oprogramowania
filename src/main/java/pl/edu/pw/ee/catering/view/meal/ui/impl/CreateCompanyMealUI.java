@@ -139,7 +139,7 @@ public class CreateCompanyMealUI extends VerticalLayout implements ICreateMealFo
             }
             mealDetails.setIngredients(ingredientList);
 
-
+            mealDetails.setCompanyId(1l);
             createMealUC.createMeal(mealDetails);
 
 
