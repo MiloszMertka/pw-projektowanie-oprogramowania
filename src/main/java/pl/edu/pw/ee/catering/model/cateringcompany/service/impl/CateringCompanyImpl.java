@@ -59,7 +59,7 @@ public class CateringCompanyImpl implements ICateringCompany {
     
     @Override
     public OrderList showOrderList(Long id) {
-        return new OrderList(new ArrayList<>());
+        return order.getOrderList(id);
     }
 
     @Override
