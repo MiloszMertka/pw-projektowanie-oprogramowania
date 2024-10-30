@@ -57,8 +57,8 @@ public class CateringCompanyImpl implements ICateringCompany {
     }
     
     @Override
-    public OrderWithDetails getOrder(Long id) {
-        return order.getOrder(id);
+    public OrderWithDetails getOrderWithDetails(Long id) {
+        return order.getOrderWithDetails(id);
     }
     
     @Override

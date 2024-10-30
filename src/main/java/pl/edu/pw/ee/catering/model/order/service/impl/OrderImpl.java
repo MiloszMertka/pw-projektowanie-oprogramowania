@@ -14,17 +14,17 @@ class OrderImpl implements IOrder {
     private final OrderRepository orderRepository;
     
     @Override
-    public OrderWithDetails getOrder(Long id) {
-        return getOrderById(id);
+    public OrderWithDetails getOrderWithDetails(Long id) {
+        return getOrderWithDetailsById(id);
     }
     
-    private OrderWithDetails getOrderById(Long id) {
+    private OrderWithDetails getOrderWithDetailsById(Long id) {
         return orderRepository.findById(id).orElseThrow();
     }
 
     @Override
     public void changeOrderStatus(Long id, OrderStatus status) {
-        OrderWithDetails order = getOrderById(id);
+        OrderWithDetails order = getOrderWithDetailsById(id);
         changeOrderStatus(order, status);
         orderRepository.save(order);
     }

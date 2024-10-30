@@ -5,7 +5,7 @@ import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 
 public interface IOrder {
     
-    OrderWithDetails getOrder(Long id);
+    OrderWithDetails getOrderWithDetails(Long id);
 
     void changeOrderStatus(Long id, OrderStatus status);
     

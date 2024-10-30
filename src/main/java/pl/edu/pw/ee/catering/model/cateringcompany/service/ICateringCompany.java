@@ -23,7 +23,7 @@ public interface ICateringCompany {
 
     MealList showMealList(Long id);
     
-    OrderWithDetails getOrder(Long id);
+    OrderWithDetails getOrderWithDetails(Long id);
     
     void changeOrderStatus(Long id, OrderStatus status);
 }
