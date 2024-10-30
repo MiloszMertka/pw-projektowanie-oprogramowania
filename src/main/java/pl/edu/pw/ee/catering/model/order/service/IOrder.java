@@ -12,4 +12,6 @@ public interface IOrder {
     
     /// Since there will be only 1 company (due to no authentication) it should be set to always one number
     OrderList getOrderList(Long id);
+
+    OrderList getHistoricalOrderList(Long id);
 }

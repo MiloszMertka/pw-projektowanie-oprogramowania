@@ -45,8 +45,7 @@ public class CateringCompanyImpl implements ICateringCompany {
 
     @Override
     public OrderList showHistoricalOrderList(Long id) {
-        var historicalOrder = new AppOrder(90L, "HistoricalOrder", "20-10-2020", OrderStatus.FINISHED, 1L);
-        return new OrderList(List.of(historicalOrder));
+        return order.getHistoricalOrderList(id);
     }
 
     @Override
