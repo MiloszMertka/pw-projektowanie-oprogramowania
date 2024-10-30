@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 import pl.edu.pw.ee.catering.model.cateringcompany.service.ICateringCompany;
+import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.dto.MealDetails;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
+import pl.edu.pw.ee.catering.view.meal.ui.CateringCompanyMealUI;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICreateMealUC;
 import pl.edu.pw.ee.catering.view.cateringcompany.ui.CateringCompanyUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
@@ -20,6 +22,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
 
     private final ICateringCompany cateringCompany;
     private final ObjectProvider<HistoricalOrderListComponent> historicalOrderListProvider;
+    private final ObjectProvider<CateringCompanyMealUI> cateringCompanyMealUIProvider;
     private final ObjectProvider<OrderListComponent> orderListProvider;
     private final ObjectProvider<CreateCompanyMealUI> createMealFormComponents;
 
@@ -35,6 +38,18 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
         OrderList orders = cateringCompany.showHistoricalOrderList(1L);
         historicalOrderList.showHistoricalOrderList(orders);
     }
+
+    @Override
+    public void navigateToMealList() {
+        UI.getCurrent().navigate(CateringCompanyMealUI.class);
+
+        CateringCompanyMealUI cateringCompanyMealUI = cateringCompanyMealUIProvider.getIfAvailable();
+        if (cateringCompanyMealUI == null) {
+            throw new IllegalStateException("CateringCompanyMealUI not found");
+        }
+
+        MealList mealList = cateringCompany.showMealList(1L);
+        cateringCompanyMealUI.showMealList(mealList);
 
     @Override
     public void navigateToOrderList() {
@@ -59,8 +74,6 @@ public class CateringCompanyApp implements ICateringCompanyRouter, ICreateMealUC
         }
 
         createMealForm.showCreateMealForm();
-
-
     }
 
     @Override

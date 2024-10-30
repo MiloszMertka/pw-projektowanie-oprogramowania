@@ -1,0 +1,63 @@
+.meal-card {
+  width: 100%;
+  margin: 2px 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.image {
+  width: 132px;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.meal-card-name {
+  font-weight: bold;
+  font-size: 24px;
+  color: var(--primary-color);
+}
+
+.meal-card-ingredients {
+  color: black;
+}
+
+.meal-card-label {
+  color: var(--primary-color);
+  margin-right: 4px;
+}
+
+.meal-card-value {
+  color: black;
+}
+
+.price-calories-layout {
+  display: flex;
+}
+
+.info-layout {
+  padding: 4px;
+}
+
+.image-info-layout {
+  display: flex;
+  align-items: center;
+}
+
+.card-layout {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.edit-button {
+  margin: 4px;
+}
+
+.label-component{
+  color: var(--primary-color)
+}
+
+.value-component{
+  color: black;
+  margin-left: 8px;
+}
