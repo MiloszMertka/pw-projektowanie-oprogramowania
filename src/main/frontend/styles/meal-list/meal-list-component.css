@@ -1,0 +1,16 @@
+.meal-list-layout {
+  width: 100%;
+}
+
+.meal-button-layout {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.meal-button-layout > * {
+  flex: 1 1;
+  margin: 0;
+}

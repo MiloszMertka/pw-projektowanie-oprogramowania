@@ -1,5 +1,10 @@
 @import "../styles/styles.css";
 
+h1 {
+    color: var(--primary-color);
+    font-weight: 400;
+}
+
 .custom-grid {
     border: none;
     box-shadow: none;

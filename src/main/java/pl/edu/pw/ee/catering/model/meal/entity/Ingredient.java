@@ -2,13 +2,19 @@ package pl.edu.pw.ee.catering.model.meal.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.Builder;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ingredient {
 
     @Id
