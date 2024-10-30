@@ -12,9 +12,6 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderDetails;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 @UIScope
 @SpringComponent
 @Route("order-details")
@@ -37,14 +34,9 @@ public class OrderDetailsComponent extends VerticalLayout implements IOrderDetai
 
         if (orderWithDetails != null) {
             final var verticalLayout = new VerticalLayout();
-            final var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            final var formattedDate = formatter.format(
-                LocalDateTime.parse(orderWithDetails.getDate())
-            );
-
             verticalLayout.add(new Div(new Text("ID zamówienia: " + orderWithDetails.getId())));
             verticalLayout.add(new Div(new Text("Nazwa zamówienia: " + orderWithDetails.getName())));
-            verticalLayout.add(new Div(new Text("Data zamówienia: " + formattedDate)));
+            verticalLayout.add(new Div(new Text("Data zamówienia: " + orderWithDetails.getDate())));
             verticalLayout.add(new Div(new Text("Status zamówienia: " + orderWithDetails.getStatus().getDisplayName())));
 
             add(verticalLayout);
@@ -53,7 +45,7 @@ public class OrderDetailsComponent extends VerticalLayout implements IOrderDetai
         }
 
 
-        Button backButton = new Button("Powróć do zamówień", e -> getUI().ifPresent(ui -> ui.navigate("")));
+        Button backButton = new Button("Powróć do zamówień", e -> getUI().ifPresent(ui -> ui.navigate("/orders-list")));
         add(backButton);
     }
 
