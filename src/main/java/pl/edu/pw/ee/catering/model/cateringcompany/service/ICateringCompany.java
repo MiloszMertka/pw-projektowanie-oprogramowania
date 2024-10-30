@@ -19,6 +19,8 @@ public interface ICateringCompany {
 
     OrderList showHistoricalOrderList(Long id);
 
+    OrderWithDetails getOrderDetails(Long id);
+
     OrderList showOrderList(Long id);
 
     MealList showMealList(Long id);

@@ -1,5 +1,6 @@
 package pl.edu.pw.ee.catering.model.cateringcompany.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
@@ -44,6 +45,16 @@ public class CateringCompanyImpl implements ICateringCompany {
     @Override
     public OrderList showHistoricalOrderList(Long id) {
         return new OrderList(new ArrayList<>());
+    }
+
+    @Override
+    public OrderWithDetails getOrderDetails(Long id) {
+        return new OrderWithDetails(
+            id,
+            "Typical Order",
+            LocalDateTime.now().toString(),
+            OrderStatus.IN_PREPARATION
+        );
     }
 
     @Override
