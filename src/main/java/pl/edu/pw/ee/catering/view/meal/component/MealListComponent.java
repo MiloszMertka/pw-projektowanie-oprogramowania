@@ -1,5 +1,7 @@
 package pl.edu.pw.ee.catering.view.meal.component;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -25,8 +27,11 @@ public class MealListComponent extends VerticalLayout {
         add(mealListLayout);
 
         AddMealButton addMealButton = new AddMealButton();
+        Button closeButton = new Button("Zamknij", event -> {
+            getUI().ifPresent(ui -> ui.navigate(""));
+        });
 
-        HorizontalLayout buttonLayout = new HorizontalLayout(addMealButton);
+        HorizontalLayout buttonLayout = new HorizontalLayout(/*addMealButton,*/ closeButton);
         buttonLayout.addClassName("meal-button-layout");
 
         add(buttonLayout);
