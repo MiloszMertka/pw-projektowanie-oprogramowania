@@ -9,6 +9,7 @@ import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.DeleteMealComponent;
+import pl.edu.pw.ee.catering.view.meal.ui.impl.EditCompanyMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderDetails;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CateringCompanyMealListUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
@@ -26,6 +27,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
     private final ObjectProvider<CateringCompanyMealListUI> cateringCompanyMealUIProvider;
     private final ObjectProvider<OrderListComponent> orderListProvider;
     private final ObjectProvider<CreateCompanyMealUI> createMealFormComponents;
+    private final ObjectProvider<EditCompanyMealUI> editMealFormComponents;
     private final ObjectProvider<DeleteMealComponent> deleteMealComponents;
 
     @Override
@@ -75,6 +77,17 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
         }
 
         deleteMealComponent.deleteMeal(id);
+    }
+
+    @Override
+    public void navigateToEditMealForm(Long id) {
+        UI.getCurrent().navigate(EditCompanyMealUI.class, id);
+        EditCompanyMealUI editMealForm = editMealFormComponents.getIfAvailable();
+        if(editMealForm == null) {
+            throw new IllegalStateException("editMealComponent not found");
+        }
+
+        editMealForm.showEditMealForm(id);
     }
 
     @Override
