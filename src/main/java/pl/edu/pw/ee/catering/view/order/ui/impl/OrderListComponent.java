@@ -54,9 +54,11 @@ public class OrderListComponent extends VerticalLayout implements IOrderList {
             Button viewDetailsButton = new Button("Wyświetl szczegóły zamówienia", event -> {
                     router.navigateToOrderDetails(order.getId());
             });
-            Anchor changeStatusLink = new Anchor("#", "Zmień status zamówienia");
+            Button changeOrderStatus = new Button("Zmień status zamówienia", event -> {
+                router.navigateToChangeOrderStatus(order.getId());
+            });
 
-            optionsLayout.add(viewDetailsButton, changeStatusLink);
+            optionsLayout.add(viewDetailsButton, changeOrderStatus);
             return optionsLayout;
         })).setHeader("Opcje");
 

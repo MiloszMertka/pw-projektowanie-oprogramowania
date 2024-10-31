@@ -8,4 +8,5 @@ public interface ICateringCompanyRouter {
     void navigateToCreateMealForm();
     void navigateToMealList();
     void navigateToDeleteMeal(Long id);
+    void navigateToChangeOrderStatus(Long id);
 }

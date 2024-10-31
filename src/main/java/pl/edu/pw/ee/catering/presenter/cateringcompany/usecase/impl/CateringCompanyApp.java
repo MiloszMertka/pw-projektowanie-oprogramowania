@@ -12,6 +12,7 @@ import pl.edu.pw.ee.catering.view.meal.ui.impl.DeleteMealComponent;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderDetails;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CateringCompanyMealListUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
+import pl.edu.pw.ee.catering.view.order.ui.impl.ChangeOrderStatusComponent;
 import pl.edu.pw.ee.catering.view.order.ui.impl.HistoricalOrderListComponent;
 import pl.edu.pw.ee.catering.view.order.ui.impl.OrderDetailsComponent;
 import pl.edu.pw.ee.catering.view.order.ui.impl.OrderListComponent;
@@ -27,6 +28,8 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
     private final ObjectProvider<OrderListComponent> orderListProvider;
     private final ObjectProvider<CreateCompanyMealUI> createMealFormComponents;
     private final ObjectProvider<DeleteMealComponent> deleteMealComponents;
+
+    private final ObjectProvider<ChangeOrderStatusComponent> changeOrderStatusComponents;
 
     @Override
     public void navigateToHistoricalOrderList() {
@@ -100,6 +103,18 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
         }
 
         createMealForm.showCreateMealForm();
+    }
+
+    @Override
+    public void navigateToChangeOrderStatus(Long id) {
+        UI.getCurrent().navigate(ChangeOrderStatusComponent.class);
+
+        ChangeOrderStatusComponent changeOrderStatusComponent = changeOrderStatusComponents.getIfAvailable();
+        if(changeOrderStatusComponent == null) {
+            throw new IllegalStateException("changeOrderStatusComponentNotFound");
+        }
+        final var orderWithDetails = cateringCompany.getOrderDetails(id);
+        changeOrderStatusComponent.changeOrderStatus(orderWithDetails);
     }
 
 }
