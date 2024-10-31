@@ -8,6 +8,7 @@ import pl.edu.pw.ee.catering.model.cateringcompany.service.ICateringCompany;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
+import pl.edu.pw.ee.catering.view.meal.ui.impl.DeleteMealComponent;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderDetails;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CateringCompanyMealListUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
@@ -25,6 +26,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
     private final ObjectProvider<CateringCompanyMealListUI> cateringCompanyMealUIProvider;
     private final ObjectProvider<OrderListComponent> orderListProvider;
     private final ObjectProvider<CreateCompanyMealUI> createMealFormComponents;
+    private final ObjectProvider<DeleteMealComponent> deleteMealComponents;
 
     @Override
     public void navigateToHistoricalOrderList() {
@@ -63,7 +65,18 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
         MealList mealList = cateringCompany.showMealList(1L);
         cateringCompanyMealListUI.showMealList(mealList);
     }
-      
+
+    @Override
+    public void navigateToDeleteMeal(Long id) {
+        UI.getCurrent().navigate(DeleteMealComponent.class, id);
+        DeleteMealComponent deleteMealComponent = deleteMealComponents.getIfAvailable();
+        if(deleteMealComponent == null) {
+            throw new IllegalStateException("deleteMealCompoennt not found");
+        }
+
+        deleteMealComponent.deleteMeal(id);
+    }
+
     @Override
     public void navigateToOrderList() {
         UI.getCurrent().navigate(OrderListComponent.class);

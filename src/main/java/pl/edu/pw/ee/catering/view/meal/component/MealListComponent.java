@@ -25,9 +25,8 @@ public class MealListComponent extends VerticalLayout {
         add(mealListLayout);
 
         AddMealButton addMealButton = new AddMealButton();
-        DeleteMealButton deleteMealButton = new DeleteMealButton();
 
-        HorizontalLayout buttonLayout = new HorizontalLayout(addMealButton, deleteMealButton);
+        HorizontalLayout buttonLayout = new HorizontalLayout(addMealButton);
         buttonLayout.addClassName("meal-button-layout");
 
         add(buttonLayout);
