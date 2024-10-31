@@ -1,5 +1,6 @@
 package pl.edu.pw.ee.catering.view.meal.component.util;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -9,7 +10,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import java.util.stream.Collectors;
 import pl.edu.pw.ee.catering.model.meal.entity.Ingredient;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
+import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
+import pl.edu.pw.ee.catering.view.meal.component.util.buttons.DeleteMealButton;
 import pl.edu.pw.ee.catering.view.meal.component.util.buttons.EditMealButton;
+import pl.edu.pw.ee.catering.view.meal.ui.impl.DeleteMealComponent;
 
 @CssImport("./styles/meal-list/meal-card.css")
 public class MealCard extends Div {
@@ -44,7 +48,14 @@ public class MealCard extends Div {
         EditMealButton editButton = new EditMealButton();
         editButton.addClassName("edit-button");
 
-        HorizontalLayout cardLayout = new HorizontalLayout(imageInfoLayout, editButton);
+        DeleteMealButton deleteMealButton = new DeleteMealButton();
+        deleteMealButton.addClassName("delete-button");
+
+        deleteMealButton.addClickListener(event ->
+                UI.getCurrent().navigate("delete-meal/" + meal.getId())
+        );
+
+        HorizontalLayout cardLayout = new HorizontalLayout(imageInfoLayout, editButton, deleteMealButton);
         cardLayout.addClassName("card-layout");
 
         add(cardLayout);
