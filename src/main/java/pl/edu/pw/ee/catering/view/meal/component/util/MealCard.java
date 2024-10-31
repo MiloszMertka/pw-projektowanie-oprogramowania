@@ -51,9 +51,11 @@ public class MealCard extends Div {
         DeleteMealButton deleteMealButton = new DeleteMealButton();
         deleteMealButton.addClassName("delete-button");
 
+        editButton.addClickListener(event ->
+                UI.getCurrent().navigate("edit-meal-form/" + meal.getId()));
+
         deleteMealButton.addClickListener(event ->
-                UI.getCurrent().navigate("delete-meal/" + meal.getId())
-        );
+                UI.getCurrent().navigate("delete-meal/" + meal.getId()));
 
         HorizontalLayout cardLayout = new HorizontalLayout(imageInfoLayout, editButton, deleteMealButton);
         cardLayout.addClassName("card-layout");
