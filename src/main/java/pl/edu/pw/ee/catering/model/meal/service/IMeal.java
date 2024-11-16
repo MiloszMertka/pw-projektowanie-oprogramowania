@@ -16,4 +16,6 @@ public interface IMeal {
 
     /// Since there will be only 1 company (due to no authentication) it should be set to always one number
     MealList getMealList(Long id);
+
+    MealList getClientMealList();
 }

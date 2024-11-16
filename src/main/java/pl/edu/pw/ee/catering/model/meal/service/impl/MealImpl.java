@@ -46,6 +46,12 @@ class MealImpl implements IMeal {
         mealRepository.save(meal);
     }
 
+    @Override
+    public MealList getClientMealList() {
+        final var clientMealList = mealRepository.findAll();
+        return new MealList(clientMealList);
+    }
+
     private void editMeal(Meal meal, MealDetails mealDetails) {
         meal.setName(mealDetails.getName());
         meal.setCaloricity(mealDetails.getCaloricity());
