@@ -6,7 +6,6 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import lombok.RequiredArgsConstructor;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
-import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 import pl.edu.pw.ee.catering.view.meal.component.ClientMealListMessageComponent;
 import pl.edu.pw.ee.catering.view.meal.component.MealListComponent;
 import pl.edu.pw.ee.catering.view.meal.ui.IClientMealList;
@@ -16,8 +15,6 @@ import pl.edu.pw.ee.catering.view.meal.ui.IClientMealList;
 @Route("/client-meal")
 @RequiredArgsConstructor
 public class ClientMealUI extends VerticalLayout implements IClientMealList {
-
-    private final IMeal meal;
 
     @Override
     public void showClientMealList(MealList mealList) {
