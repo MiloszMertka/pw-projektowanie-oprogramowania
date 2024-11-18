@@ -7,6 +7,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
@@ -15,6 +16,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
+import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
 import pl.edu.pw.ee.catering.view.order.ui.IClientHistoricalOrderList;
 
 import java.util.Collections;
@@ -26,7 +28,9 @@ import java.util.Collections;
 public class ClientHistoricalOrderListComponent extends VerticalLayout implements IClientHistoricalOrderList {
 
     private Grid<AppOrder> orderGrid;
-    public ClientHistoricalOrderListComponent() {
+    final private IClientRouter clientRouter;
+    public ClientHistoricalOrderListComponent(IClientRouter clientRouter) {
+        this.clientRouter = clientRouter;
         initLayout();
     }
 
@@ -49,7 +53,12 @@ public class ClientHistoricalOrderListComponent extends VerticalLayout implement
             optionsLayout.getStyle().set("padding", "0");
 
             Anchor viewDetailsLink = new Anchor("#", "Dodaj opinię");
-            Anchor changeStatusLink = new Anchor("#", "Złóż reklamację");
+            Paragraph changeStatusLink = new Paragraph ( "Złóż reklamację");
+
+            changeStatusLink.getStyle()
+                    .set("text-decoration", "underline")
+                    .set("cursor", "pointer");
+            changeStatusLink.addClickListener(e-> clientRouter.navigateToPlaceComplaintForm(order.getId()));
 
             optionsLayout.add(viewDetailsLink, changeStatusLink);
             return optionsLayout;

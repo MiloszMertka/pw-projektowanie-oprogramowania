@@ -1,0 +1,13 @@
+.info-box {
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7;
+  width: 200px;
+  text-align: left;
+}
+
+.pay-button{
+  color: white;
+  background-color: var(--primary-color);
+}
