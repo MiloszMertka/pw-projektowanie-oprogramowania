@@ -13,10 +13,7 @@ import pl.edu.pw.ee.catering.view.meal.ui.impl.EditCompanyMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderDetails;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CateringCompanyMealListUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ChangeOrderStatusComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.HistoricalOrderListComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.OrderDetailsComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.OrderListComponent;
+import pl.edu.pw.ee.catering.view.order.ui.impl.*;
 
 @Component
 @RequiredArgsConstructor
@@ -32,6 +29,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
     private final ObjectProvider<DeleteMealComponent> deleteMealComponents;
 
     private final ObjectProvider<ChangeOrderStatusComponent> changeOrderStatusComponents;
+    private final ObjectProvider<ClientHistoricalOrderListComponent> clientHistoricalOrderListComponents;
 
     @Override
     public void navigateToHistoricalOrderList() {
@@ -128,6 +126,18 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
         }
         final var orderWithDetails = cateringCompany.getOrderDetails(id);
         changeOrderStatusComponent.changeOrderStatus(orderWithDetails);
+    }
+
+    @Override
+    public void navigateToClientHistoricalOrderList() {
+        UI.getCurrent().navigate(ClientHistoricalOrderListComponent.class);
+
+        ClientHistoricalOrderListComponent clientHistoricalOrderListComponent = clientHistoricalOrderListComponents.getIfAvailable();
+        if(clientHistoricalOrderListComponent == null) {
+            throw new IllegalStateException("clientHistoricalOrderListComponentNotFound");
+        }
+        OrderList orderList = cateringCompany.getClientHistoricalOrderList(1L);
+        clientHistoricalOrderListComponent.showClientHistoricalOrderList(orderList);
     }
 
 }

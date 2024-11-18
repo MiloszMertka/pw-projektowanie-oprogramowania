@@ -28,4 +28,6 @@ public interface ICateringCompany {
     OrderWithDetails getOrderWithDetails(Long id);
     
     void changeOrderStatus(Long id, OrderStatus status);
+
+    OrderList getClientHistoricalOrderList(Long clientId);
 }
