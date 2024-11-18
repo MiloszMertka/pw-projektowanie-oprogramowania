@@ -55,6 +55,12 @@ class OrderImpl implements IOrder {
         return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED)).toList());
     }
 
+    @Override
+    public int getOrderPrice() {
+        return 12;
+    }
+
+
     private OrderWithDetails mapAppOrderToOrderWithDetails(AppOrder order) {
         return OrderWithDetails.builder()
                 .id(order.getId())
