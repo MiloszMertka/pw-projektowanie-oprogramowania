@@ -18,7 +18,7 @@ public class CateringCompanyMealListUI extends VerticalLayout implements IMealLi
     @Override
     public void showMealList(MealList mealList) {
         removeAll();
-        MealListComponent mealListComponent = new MealListComponent(mealList);
+        MealListComponent mealListComponent = new MealListComponent(mealList, true);
         add(mealListComponent);
     }
 }

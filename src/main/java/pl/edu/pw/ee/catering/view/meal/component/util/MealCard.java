@@ -10,15 +10,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import java.util.stream.Collectors;
 import pl.edu.pw.ee.catering.model.meal.entity.Ingredient;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
-import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
 import pl.edu.pw.ee.catering.view.meal.component.util.buttons.DeleteMealButton;
 import pl.edu.pw.ee.catering.view.meal.component.util.buttons.EditMealButton;
-import pl.edu.pw.ee.catering.view.meal.ui.impl.DeleteMealComponent;
 
 @CssImport("./styles/meal-list/meal-card.css")
 public class MealCard extends Div {
 
-    public MealCard(Meal meal) {
+    public MealCard(Meal meal, boolean isMutable) {
         addClassName("meal-card");
 
         Image image = new Image("https://placehold.co/132x132", "Meal Image");
@@ -45,22 +43,33 @@ public class MealCard extends Div {
         HorizontalLayout imageInfoLayout = new HorizontalLayout(image, infoLayout);
         imageInfoLayout.addClassName("image-info-layout");
 
-        EditMealButton editButton = new EditMealButton();
-        editButton.addClassName("edit-button");
-
-        DeleteMealButton deleteMealButton = new DeleteMealButton();
-        deleteMealButton.addClassName("delete-button");
-
-        editButton.addClickListener(event ->
-                UI.getCurrent().navigate("edit-meal-form/" + meal.getId()));
-
-        deleteMealButton.addClickListener(event ->
-                UI.getCurrent().navigate("delete-meal/" + meal.getId()));
-
-        HorizontalLayout cardLayout = new HorizontalLayout(imageInfoLayout, editButton, deleteMealButton);
-        cardLayout.addClassName("card-layout");
+        HorizontalLayout cardLayout = getHorizontalLayout(meal, isMutable, imageInfoLayout);
 
         add(cardLayout);
+    }
+
+    private HorizontalLayout getHorizontalLayout(Meal meal, boolean isMutable, HorizontalLayout imageInfoLayout) {
+        EditMealButton editButton = null;
+        DeleteMealButton deleteMealButton = null;
+
+        if (isMutable) {
+            editButton = new EditMealButton();
+            editButton.addClassName("edit-button");
+
+            deleteMealButton = new DeleteMealButton();
+            deleteMealButton.addClassName("delete-button");
+
+            editButton.addClickListener(event ->
+                    UI.getCurrent().navigate("edit-meal-form/" + meal.getId()));
+
+            deleteMealButton.addClickListener(event ->
+                    UI.getCurrent().navigate("delete-meal/" + meal.getId()));
+        }
+
+        HorizontalLayout cardLayout = isMutable ? new HorizontalLayout(imageInfoLayout, editButton, deleteMealButton)
+                : new HorizontalLayout(imageInfoLayout);
+        cardLayout.addClassName("card-layout");
+        return cardLayout;
     }
 
     private HorizontalLayout createLabeledValue(String label, String value) {

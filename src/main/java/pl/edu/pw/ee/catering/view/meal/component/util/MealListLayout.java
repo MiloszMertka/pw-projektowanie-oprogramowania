@@ -8,14 +8,14 @@ import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 @CssImport("./styles/meal-list/meal-list-layout.css")
 public class MealListLayout extends VerticalLayout {
 
-    public MealListLayout(MealList mealList) {
+    public MealListLayout(MealList mealList, boolean isMutable) {
         addClassName("meal-list-layout.");
 
-        mealList.getMeals().forEach(this::addMealCard);
+        mealList.getMeals().forEach((meal) -> addMealCard(meal, isMutable));
     }
 
-    private void addMealCard(Meal meal) {
-        MealCard mealCard = new MealCard(meal);
+    private void addMealCard(Meal meal, boolean isMutable) {
+        MealCard mealCard = new MealCard(meal, isMutable);
         add(mealCard);
     }
 }
