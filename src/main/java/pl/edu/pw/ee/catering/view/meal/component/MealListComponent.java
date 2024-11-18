@@ -17,7 +17,7 @@ public class MealListComponent extends VerticalLayout {
     }
 
     private void initLayout(MealList mealList, boolean isMutable) {
-        H1 title = new H1("Aktualna oferta:");
+        H1 title = new H1(isMutable ? "Aktualna oferta:" : "Lista posiłków:");
         add(title);
 
         MealListLayout mealListLayout = new MealListLayout(mealList, isMutable);
