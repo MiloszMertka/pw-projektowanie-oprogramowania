@@ -18,4 +18,6 @@ public interface IOrder {
     OrderList getHistoricalOrderList(Long id);
 
     OrderList getClientHistoricalOrderList(Long clientId);
+
+    int getOrderPrice();
 }
