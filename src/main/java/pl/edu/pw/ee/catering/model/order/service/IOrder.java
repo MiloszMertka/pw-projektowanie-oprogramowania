@@ -16,4 +16,6 @@ public interface IOrder {
     OrderList getOrderList(Long id);
 
     OrderList getHistoricalOrderList(Long id);
+
+    OrderList getClientHistoricalOrderList(Long clientId);
 }

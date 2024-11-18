@@ -27,4 +27,7 @@ public class AppOrder {
 
     @Column(nullable = false) // Consulted with architect - diagram 'Architektura logiczna - struktura' has to be updated
     private Long companyId = 1L;
+
+    @Column(nullable = false)
+    private Long clientId = 1L;
 }
