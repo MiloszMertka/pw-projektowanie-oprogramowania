@@ -4,10 +4,12 @@ import com.vaadin.flow.component.UI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
+import pl.edu.pw.ee.catering.model.cart.service.ICart;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
+import pl.edu.pw.ee.catering.presenter.client.usecase.IAddMealToCartUC;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IPlaceOrderUC;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.ClientMealUI;
@@ -16,10 +18,11 @@ import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderUI;
 
 @Component
 @RequiredArgsConstructor
-public class ClientApp implements IClientRouter, IPlaceOrderUC {
+public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC {
 
     private final IOrder order;
     private final IMeal meal;
+    private final ICart cart;
     //    private final ISavingsAccount savingsAccount;
     private final ObjectProvider<ClientOrderUI> clientOrderUIObjectProvider;
     private final ObjectProvider<ClientComplaintUI> clientComplaintUIObjectProvider;
@@ -77,6 +80,11 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC {
             ClientOrderUI clientOrderUI = getClientOrderUI();
             clientOrderUI.showSuccessForm();
         }
+    }
+
+    @Override
+    public void addMealToCart(Long mealId) {
+
     }
 
     private ClientOrderUI getClientOrderUI() {
