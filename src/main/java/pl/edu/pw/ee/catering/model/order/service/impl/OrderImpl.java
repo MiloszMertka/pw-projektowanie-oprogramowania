@@ -50,4 +50,11 @@ class OrderImpl implements IOrder {
                 .status(order.getStatus())
                 .build();
     }
+
+    @Override
+    public OrderStatus getOrderStatus(Long id){
+        var order = orderRepository.findById(id).orElseThrow();
+        var status = order.getStatus();
+        return  status;
+    }
 }
