@@ -72,6 +72,8 @@ public class CateringCompanyImpl implements ICateringCompany {
     public void changeOrderStatus(Long id, OrderStatus status) {
         order.changeOrderStatus(id, status);
     }
+    @Override
+    public OrderStatus getOrderStatus(Long id){return order.getOrderStatus(id);}
 
     @Override
     public OrderList getClientHistoricalOrderList(Long clientId) {
