@@ -2,6 +2,9 @@ package pl.edu.pw.ee.catering.model.cart.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.edu.pw.ee.catering.model.meal.entity.Meal;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -19,7 +22,7 @@ public class Cart { // Consulted with architect - diagram 'Architektura logiczna
     @Column(nullable = false)
     private Long clientId;
 
-    @Column(nullable = false)
-    private Long mealId;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Meal> meals;
 
 }
