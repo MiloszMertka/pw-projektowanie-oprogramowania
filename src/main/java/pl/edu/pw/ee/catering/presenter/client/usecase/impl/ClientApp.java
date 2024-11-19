@@ -86,7 +86,7 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     @Override
     public void addMealToCart(Long mealId) {
         Meal mealToAdd = meal.getMeal(mealId);
-        cart.addMealToCart(mealToAdd);
+        cart.addMealToCart(mealToAdd.getId());
 
         ClientMealUI clientMealUI = getClientMealUI();
         clientMealUI.showUpdateCartMessage();
