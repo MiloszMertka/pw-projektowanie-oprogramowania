@@ -22,7 +22,7 @@ public class Cart { // Consulted with architect - diagram 'Architektura logiczna
     @Column(nullable = false)
     private Long clientId;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Meal> meals;
 
 }
