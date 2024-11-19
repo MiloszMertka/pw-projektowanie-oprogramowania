@@ -1,0 +1,20 @@
+.horizontal-layout {
+  margin-bottom: 10px;
+}
+
+.proceed-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.back-button {
+  background-color: white;
+  border: 1px solid #ccc;
+  color: black;
+}
+
+.button-layout {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

@@ -5,7 +5,9 @@ import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 
 public interface IOrder {
-    
+
+    void updateOrder(OrderWithDetails order);
+
     OrderWithDetails getOrderWithDetails(Long id);
 
     void changeOrderStatus(Long id, OrderStatus status);
@@ -15,4 +17,8 @@ public interface IOrder {
 
     OrderList getHistoricalOrderList(Long id);
     OrderStatus getOrderStatus(Long id);
+    OrderList getClientHistoricalOrderList(Long clientId);
+
+    int getOrderPrice();
+
 }

@@ -14,6 +14,7 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
+import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderList;
 
 import java.util.Collections;
@@ -25,8 +26,10 @@ import java.util.Collections;
 @CssImport("./styles/order-styles.css")
 public class OrderListComponent extends VerticalLayout implements IOrderList {
     private Grid<AppOrder> orderGrid;
+    private final ICateringCompanyRouter router;
 
-    public OrderListComponent() {
+    public OrderListComponent(ICateringCompanyRouter router) {
+        this.router = router;
         initLayout();
     }
 
@@ -48,10 +51,14 @@ public class OrderListComponent extends VerticalLayout implements IOrderList {
             optionsLayout.addClassName("primary-color");
             optionsLayout.getStyle().set("padding", "0");
 
-            Anchor viewDetailsLink = new Anchor("#", "Wyświetl szczegóły zamówienia");
-            Anchor changeStatusLink = new Anchor("#", "Zmień status zamówienia");
+            Button viewDetailsButton = new Button("Wyświetl szczegóły zamówienia", event -> {
+                    router.navigateToOrderDetails(order.getId());
+            });
+            Button changeOrderStatus = new Button("Zmień status zamówienia", event -> {
+                router.navigateToChangeOrderStatus(order.getId());
+            });
 
-            optionsLayout.add(viewDetailsLink, changeStatusLink);
+            optionsLayout.add(viewDetailsButton, changeOrderStatus);
             return optionsLayout;
         })).setHeader("Opcje");
 

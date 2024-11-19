@@ -8,12 +8,12 @@ import pl.edu.pw.ee.catering.model.cateringcompany.service.ICateringCompany;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
+import pl.edu.pw.ee.catering.view.meal.ui.impl.DeleteMealComponent;
+import pl.edu.pw.ee.catering.view.meal.ui.impl.EditCompanyMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.IOrderDetails;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CateringCompanyMealListUI;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.CreateCompanyMealUI;
-import pl.edu.pw.ee.catering.view.order.ui.impl.HistoricalOrderListComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.OrderDetailsComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.OrderListComponent;
+import pl.edu.pw.ee.catering.view.order.ui.impl.*;
 
 @Component
 @RequiredArgsConstructor
@@ -25,6 +25,11 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
     private final ObjectProvider<CateringCompanyMealListUI> cateringCompanyMealUIProvider;
     private final ObjectProvider<OrderListComponent> orderListProvider;
     private final ObjectProvider<CreateCompanyMealUI> createMealFormComponents;
+    private final ObjectProvider<EditCompanyMealUI> editMealFormComponents;
+    private final ObjectProvider<DeleteMealComponent> deleteMealComponents;
+
+    private final ObjectProvider<ChangeOrderStatusComponent> changeOrderStatusComponents;
+    private final ObjectProvider<ClientHistoricalOrderListComponent> clientHistoricalOrderListComponents;
 
     @Override
     public void navigateToHistoricalOrderList() {
@@ -63,7 +68,29 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
         MealList mealList = cateringCompany.showMealList(1L);
         cateringCompanyMealListUI.showMealList(mealList);
     }
-      
+
+    @Override
+    public void navigateToDeleteMeal(Long id) {
+        UI.getCurrent().navigate(DeleteMealComponent.class, id);
+        DeleteMealComponent deleteMealComponent = deleteMealComponents.getIfAvailable();
+        if(deleteMealComponent == null) {
+            throw new IllegalStateException("deleteMealCompoennt not found");
+        }
+
+        deleteMealComponent.deleteMeal(id);
+    }
+
+    @Override
+    public void navigateToEditMealForm(Long id) {
+        UI.getCurrent().navigate(EditCompanyMealUI.class, id);
+        EditCompanyMealUI editMealForm = editMealFormComponents.getIfAvailable();
+        if(editMealForm == null) {
+            throw new IllegalStateException("editMealComponent not found");
+        }
+
+        editMealForm.showEditMealForm(id);
+    }
+
     @Override
     public void navigateToOrderList() {
         UI.getCurrent().navigate(OrderListComponent.class);
@@ -87,6 +114,30 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
         }
 
         createMealForm.showCreateMealForm();
+    }
+
+    @Override
+    public void navigateToChangeOrderStatus(Long id) {
+        UI.getCurrent().navigate(ChangeOrderStatusComponent.class);
+
+        ChangeOrderStatusComponent changeOrderStatusComponent = changeOrderStatusComponents.getIfAvailable();
+        if(changeOrderStatusComponent == null) {
+            throw new IllegalStateException("changeOrderStatusComponentNotFound");
+        }
+        final var orderWithDetails = cateringCompany.getOrderDetails(id);
+        changeOrderStatusComponent.changeOrderStatus(orderWithDetails);
+    }
+
+    @Override
+    public void navigateToClientHistoricalOrderList() {
+        UI.getCurrent().navigate(ClientHistoricalOrderListComponent.class);
+
+        ClientHistoricalOrderListComponent clientHistoricalOrderListComponent = clientHistoricalOrderListComponents.getIfAvailable();
+        if(clientHistoricalOrderListComponent == null) {
+            throw new IllegalStateException("clientHistoricalOrderListComponentNotFound");
+        }
+        OrderList orderList = cateringCompany.getClientHistoricalOrderList(1L);
+        clientHistoricalOrderListComponent.showClientHistoricalOrderList(orderList);
     }
 
 }

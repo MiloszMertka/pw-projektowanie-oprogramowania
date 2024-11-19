@@ -48,10 +48,10 @@ public class HistoricalOrderListComponent extends VerticalLayout implements IHis
             optionsLayout.addClassName("primary-color");
             optionsLayout.getStyle().set("padding", "0");
 
-            Anchor viewDetailsLink = new Anchor("#", "Wyświetl szczegóły zamówienia");
-            Anchor changeStatusLink = new Anchor("#", "Zmień status zamówienia");
+//            Anchor viewDetailsLink = new Anchor("#", "Wyświetl szczegóły zamówienia");
+//            Anchor changeStatusLink = new Anchor("#", "Zmień status zamówienia");
 
-            optionsLayout.add(viewDetailsLink, changeStatusLink);
+            optionsLayout.add(/*viewDetailsLink,*/ /*changeStatusLink*/);
             return optionsLayout;
         })).setHeader("Opcje");
 
