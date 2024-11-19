@@ -10,4 +10,5 @@ public interface ICateringCompanyRouter {
     void navigateToDeleteMeal(Long id);
     void navigateToChangeOrderStatus(Long id);
     void navigateToEditMealForm(Long id);
+    void navigateToClientHistoricalOrderList();
 }

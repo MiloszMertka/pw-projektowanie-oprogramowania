@@ -1,5 +1,6 @@
 package pl.edu.pw.ee.catering.model.cateringcompany.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -70,5 +71,10 @@ public class CateringCompanyImpl implements ICateringCompany {
     @Override
     public void changeOrderStatus(Long id, OrderStatus status) {
         order.changeOrderStatus(id, status);
+    }
+
+    @Override
+    public OrderList getClientHistoricalOrderList(Long clientId) {
+        return new OrderList(List.of(AppOrder.builder().id(1L).name("Order 1").date("2024-01-01").status(OrderStatus.FINISHED).companyId(1L).build())); // to be replaced
     }
 }

@@ -14,7 +14,20 @@ import pl.edu.pw.ee.catering.model.order.service.IOrder;
 @RequiredArgsConstructor
 class OrderImpl implements IOrder {
     private final OrderRepository orderRepository;
-    
+
+    @Override
+    public void updateOrder(OrderWithDetails orderWithDetails) {
+        var order = orderRepository.findById(orderWithDetails.getId()).orElseThrow();
+        updateOrder(order, orderWithDetails);
+        orderRepository.save(order);
+    }
+
+    private void updateOrder(AppOrder order, OrderWithDetails orderWithDetails) {
+        order.setName(orderWithDetails.getName());
+        order.setDate(orderWithDetails.getDate());
+        order.setStatus(orderWithDetails.getStatus());
+    }
+
     @Override
     public OrderWithDetails getOrderWithDetails(Long id) {
         var appOrder = orderRepository.findById(id).orElseThrow();
@@ -41,6 +54,12 @@ class OrderImpl implements IOrder {
     public OrderList getHistoricalOrderList(Long id) {
         return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED)).toList());
     }
+
+    @Override
+    public int getOrderPrice() {
+        return 12;
+    }
+
 
     private OrderWithDetails mapAppOrderToOrderWithDetails(AppOrder order) {
         return OrderWithDetails.builder()

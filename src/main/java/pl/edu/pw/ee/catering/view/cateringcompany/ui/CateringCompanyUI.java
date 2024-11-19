@@ -39,5 +39,9 @@ public class CateringCompanyUI extends VerticalLayout {
         Button mealListButton = new Button("Wyświetl listę własnych ofert kateringowych",
                 event -> router.navigateToMealList());
         add(mealListButton);
+
+        Button clientHistoricalOrderListButton = new Button("Wyświetl historyczne zamówienia klienta",
+                event -> router.navigateToClientHistoricalOrderList());
+        add(clientHistoricalOrderListButton);
     }
 }
