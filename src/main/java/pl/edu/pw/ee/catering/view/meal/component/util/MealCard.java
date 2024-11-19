@@ -10,13 +10,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import java.util.stream.Collectors;
 import pl.edu.pw.ee.catering.model.meal.entity.Ingredient;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
+import pl.edu.pw.ee.catering.presenter.client.usecase.IAddMealToCartUC;
+import pl.edu.pw.ee.catering.view.meal.component.util.buttons.AddToCartButton;
 import pl.edu.pw.ee.catering.view.meal.component.util.buttons.DeleteMealButton;
 import pl.edu.pw.ee.catering.view.meal.component.util.buttons.EditMealButton;
 
 @CssImport("./styles/meal-list/meal-card.css")
 public class MealCard extends Div {
 
-    public MealCard(Meal meal, boolean isMutable) {
+    public MealCard(Meal meal, boolean isMutable, IAddMealToCartUC addMealToCartUC) {
         addClassName("meal-card");
 
         Image image = new Image("https://placehold.co/132x132", "Meal Image");
@@ -43,14 +45,16 @@ public class MealCard extends Div {
         HorizontalLayout imageInfoLayout = new HorizontalLayout(image, infoLayout);
         imageInfoLayout.addClassName("image-info-layout");
 
-        HorizontalLayout cardLayout = getHorizontalLayout(meal, isMutable, imageInfoLayout);
+        HorizontalLayout cardLayout = getHorizontalLayout(meal, isMutable, imageInfoLayout, addMealToCartUC);
 
         add(cardLayout);
     }
 
-    private HorizontalLayout getHorizontalLayout(Meal meal, boolean isMutable, HorizontalLayout imageInfoLayout) {
+    private HorizontalLayout getHorizontalLayout(Meal meal, boolean isMutable, HorizontalLayout imageInfoLayout,
+                                                 IAddMealToCartUC addMealToCartUC) {
         EditMealButton editButton = null;
         DeleteMealButton deleteMealButton = null;
+        AddToCartButton addToCartButton = null;
 
         if (isMutable) {
             editButton = new EditMealButton();
@@ -64,10 +68,15 @@ public class MealCard extends Div {
 
             deleteMealButton.addClickListener(event ->
                     UI.getCurrent().navigate("delete-meal/" + meal.getId()));
+        } else {
+            addToCartButton = new AddToCartButton();
+            addToCartButton.addClickListener(event -> {
+                addMealToCartUC.addMealToCart(meal.getId());
+            });
         }
 
         HorizontalLayout cardLayout = isMutable ? new HorizontalLayout(imageInfoLayout, editButton, deleteMealButton)
-                : new HorizontalLayout(imageInfoLayout);
+                : new HorizontalLayout(imageInfoLayout, addToCartButton);
         cardLayout.addClassName("card-layout");
         return cardLayout;
     }

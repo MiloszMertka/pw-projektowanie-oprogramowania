@@ -6,21 +6,22 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
+import pl.edu.pw.ee.catering.presenter.client.usecase.IAddMealToCartUC;
 import pl.edu.pw.ee.catering.view.meal.component.util.MealListLayout;
 import pl.edu.pw.ee.catering.view.meal.component.util.buttons.AddMealButton;
 
 @CssImport("./styles/meal-list/meal-list-component.css")
 public class MealListComponent extends VerticalLayout {
 
-    public MealListComponent(MealList mealList, boolean isMutable) {
-        initLayout(mealList, isMutable);
+    public MealListComponent(MealList mealList, boolean isMutable, IAddMealToCartUC addMealToCartUC) {
+        initLayout(mealList, isMutable, addMealToCartUC);
     }
 
-    private void initLayout(MealList mealList, boolean isMutable) {
+    private void initLayout(MealList mealList, boolean isMutable, IAddMealToCartUC addMealToCartUC) {
         H1 title = new H1(isMutable ? "Aktualna oferta:" : "Lista posiłków:");
         add(title);
 
-        MealListLayout mealListLayout = new MealListLayout(mealList, isMutable);
+        MealListLayout mealListLayout = new MealListLayout(mealList, isMutable, addMealToCartUC);
         mealListLayout.addClassName("meal-list-layout");
         add(mealListLayout);
 

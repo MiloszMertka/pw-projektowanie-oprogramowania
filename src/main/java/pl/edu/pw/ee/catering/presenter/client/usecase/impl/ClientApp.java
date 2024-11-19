@@ -6,6 +6,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 import pl.edu.pw.ee.catering.model.cart.service.ICart;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
+import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
@@ -84,7 +85,11 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
 
     @Override
     public void addMealToCart(Long mealId) {
+        Meal mealToAdd = meal.getMeal(mealId);
+        cart.addMealToCart(mealToAdd);
 
+        ClientMealUI clientMealUI = getClientMealUI();
+        clientMealUI.showUpdateCartMessage();
     }
 
     private ClientOrderUI getClientOrderUI() {
