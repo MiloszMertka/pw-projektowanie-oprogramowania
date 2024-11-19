@@ -4,24 +4,30 @@ import com.vaadin.flow.component.UI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
-import pl.edu.pw.ee.catering.model.order.dto.OrderList;
+import pl.edu.pw.ee.catering.model.cart.service.ICart;
+import pl.edu.pw.ee.catering.model.meal.dto.MealList;
+import pl.edu.pw.ee.catering.model.meal.entity.Meal;
+import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
-import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
+import pl.edu.pw.ee.catering.presenter.client.usecase.IAddMealToCartUC;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IPlaceOrderUC;
+import pl.edu.pw.ee.catering.view.meal.ui.impl.ClientMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientComplaintUI;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ClientHistoricalOrderListComponent;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderUI;
 
 @Component
 @RequiredArgsConstructor
-public class ClientApp implements IClientRouter, IPlaceOrderUC {
+public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC {
 
     private final IOrder order;
+    private final IMeal meal;
+    private final ICart cart;
     //    private final ISavingsAccount savingsAccount;
     private final ObjectProvider<ClientOrderUI> clientOrderUIObjectProvider;
     private final ObjectProvider<ClientComplaintUI> clientComplaintUIObjectProvider;
+    private final ObjectProvider<ClientMealUI> clientMealUIObjectProvider;
 
     @Override
     public void navigateToPlaceOrderForm() {
@@ -35,6 +41,17 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC {
         clientComplaintUI.showPlaceComplaintForm(Id);
     }
 
+    @Override
+    public void navigateToClientMealList() {
+        ClientMealUI clientMealUI = getClientMealUI();
+        MealList mealList = meal.getClientMealList();
+
+        if (mealList == null || mealList.getMeals().isEmpty()) {
+            clientMealUI.showMessage("Brak dostępnych dań do wyświetlenia!");
+        } else {
+            clientMealUI.showClientMealList(mealList);
+        }
+    }
 
     @Override
     public void placeOrder() {
@@ -66,6 +83,15 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC {
         }
     }
 
+    @Override
+    public void addMealToCart(Long mealId) {
+        Meal mealToAdd = meal.getMeal(mealId);
+        cart.addMealToCart(mealToAdd);
+
+        ClientMealUI clientMealUI = getClientMealUI();
+        clientMealUI.showUpdateCartMessage();
+    }
+
     private ClientOrderUI getClientOrderUI() {
         UI.getCurrent().navigate(ClientOrderUI.class);
         ClientOrderUI clientOrderUI = clientOrderUIObjectProvider.getIfAvailable();
@@ -84,5 +110,15 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC {
         }
 
         return clientComplaintUI;
+    }
+
+    private ClientMealUI getClientMealUI() {
+        UI.getCurrent().navigate(ClientMealUI.class);
+        ClientMealUI clientMealUI = clientMealUIObjectProvider.getIfAvailable();
+        if (clientMealUI == null) {
+            throw new IllegalStateException("ClientMealUI not found");
+        }
+
+        return clientMealUI;
     }
 }

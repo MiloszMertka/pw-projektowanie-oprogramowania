@@ -14,5 +14,6 @@ public interface OrderRepository extends JpaRepository<AppOrder, Long> {
     
     List<AppOrder> findAllByCompanyIdAndStatusIsNot(Long companyId, OrderStatus status);
 
+    List<AppOrder> findAllByClientId(Long clientId);
 }
 
