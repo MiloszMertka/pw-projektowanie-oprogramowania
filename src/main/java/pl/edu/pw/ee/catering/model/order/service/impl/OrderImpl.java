@@ -62,7 +62,12 @@ class OrderImpl implements IOrder {
     public OrderList getClientHistoricalOrderList(Long clientId) {
         return new OrderList(orderRepository.findAllByClientId(clientId).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED) || x.getStatus().equals(OrderStatus.COMPLAINED)).toList());
     }
-  
+
+    @Override
+    public int getOrderPrice() {
+        return 0;
+    }
+
     @Override
     public int getOrderPrice(Long id) {
         Optional<AppOrder> appOrder = orderRepository.findById(id);
