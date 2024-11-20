@@ -17,6 +17,7 @@ import pl.edu.pw.ee.catering.presenter.client.usecase.IPlaceOrderUC;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.ClientMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientComplaintUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderUI;
+import pl.edu.pw.ee.catering.view.order.ui.impl.ReviewFormUI;
 
 @Component
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     private final ISavingsAccount savingsAccount;
     private final ObjectProvider<ClientOrderUI> clientOrderUIObjectProvider;
     private final ObjectProvider<ClientComplaintUI> clientComplaintUIObjectProvider;
+    private final ObjectProvider<ReviewFormUI> reviewFormUIObjectProvider;
     private final ObjectProvider<ClientMealUI> clientMealUIObjectProvider;
 
     @Override
@@ -40,6 +42,12 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     public void navigateToPlaceComplaintForm(Long Id) {
         ClientComplaintUI clientComplaintUI = getClientComplaintUI();
         clientComplaintUI.showPlaceComplaintForm(Id);
+    }
+
+    @Override
+    public void navigateToReviewForm(Long Id) {
+        ReviewFormUI reviewFormUI = getReviewFormUI();
+        reviewFormUI.showReviewForm(Id);
     }
 
     @Override
@@ -98,6 +106,16 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
         }
 
         return clientOrderUI;
+    }
+
+    private ReviewFormUI getReviewFormUI() {
+        UI.getCurrent().navigate(ReviewFormUI.class);
+        ReviewFormUI reviewFormUI = reviewFormUIObjectProvider.getIfAvailable();
+        if (reviewFormUI == null) {
+            throw new IllegalStateException("ReviewFormUI not found");
+        }
+
+        return reviewFormUI;
     }
 
     private ClientComplaintUI getClientComplaintUI() {
