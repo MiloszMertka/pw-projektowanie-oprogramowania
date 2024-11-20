@@ -49,7 +49,7 @@ public class ClientOrderDetailsComponent extends VerticalLayout implements IClie
 
     @Override
     public void close() {
-        getUI().ifPresent(ui -> ui.navigate("/client-historical-orders-list"));
+        getUI().ifPresent(ui -> ui.navigate("/client"));
     }
 
     @Override
