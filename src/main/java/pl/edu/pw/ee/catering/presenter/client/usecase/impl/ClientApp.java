@@ -10,6 +10,7 @@ import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
+import pl.edu.pw.ee.catering.model.savingsaccount.service.ISavingsAccount;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IAddMealToCartUC;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IPlaceOrderUC;
@@ -24,7 +25,7 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     private final IOrder order;
     private final IMeal meal;
     private final ICart cart;
-    //    private final ISavingsAccount savingsAccount;
+    private final ISavingsAccount savingsAccount;
     private final ObjectProvider<ClientOrderUI> clientOrderUIObjectProvider;
     private final ObjectProvider<ClientComplaintUI> clientComplaintUIObjectProvider;
     private final ObjectProvider<ClientMealUI> clientMealUIObjectProvider;
@@ -57,15 +58,12 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     public void placeOrder() {
         long orderId = 1L; // MOCK
 
-        //int orderPrice = order.getOrderPrice();
-        int orderPrice = 100; // MOCK
-
-        //boolean isAmountEnough = savingsAccount.checkIsAmountEnough(orderPrice);
-        boolean isAmountEnough = false; // MOCK
+        int orderPrice = order.getOrderPrice();
+        boolean isAmountEnough = savingsAccount.checkIsAmountEnough(orderPrice);
 
         ClientOrderUI clientOrderUI = getClientOrderUI();
         if (isAmountEnough) {
-            //savingsAccount.updateSavingsAccount(orderPrice)
+            savingsAccount.updateSavingsAccount(orderPrice);
             clientOrderUI.showSuccessForm();
         } else {
             clientOrderUI.showRedirectionForm(orderId);
@@ -74,7 +72,7 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
 
     @Override
     public void payWithPaySystem(Long orderId) {
-        boolean result = true; // mock request to PaySystem
+        boolean result = true; // MOCK
 
         if (result) {
             order.changeOrderStatus(orderId, OrderStatus.PAID);
@@ -104,9 +102,9 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
 
     private ClientComplaintUI getClientComplaintUI() {
         UI.getCurrent().navigate(ClientComplaintUI.class);
-        ClientComplaintUI clientComplaintUI = clientComplaintUIObjectProvider.getIfAvailable(); //clientOrderUIObjectProvider.getIfAvailable();
+        ClientComplaintUI clientComplaintUI = clientComplaintUIObjectProvider.getIfAvailable();
         if (clientComplaintUI == null) {
-            throw new IllegalStateException("ClientOrderUI not found");
+            throw new IllegalStateException("ClientComplaintUI not found");
         }
 
         return clientComplaintUI;
