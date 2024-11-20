@@ -15,7 +15,11 @@ import pl.edu.pw.ee.catering.presenter.client.usecase.IAddMealToCartUC;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IPlaceOrderUC;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.ClientMealUI;
+import pl.edu.pw.ee.catering.view.order.ui.IClientOrderDetails;
+import pl.edu.pw.ee.catering.view.order.ui.IModifyOrderForm;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientComplaintUI;
+import pl.edu.pw.ee.catering.view.order.ui.impl.ClientModifyOrderFormComponent;
+import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderDetailsComponent;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ReviewFormUI;
 
@@ -31,6 +35,8 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     private final ObjectProvider<ClientComplaintUI> clientComplaintUIObjectProvider;
     private final ObjectProvider<ReviewFormUI> reviewFormUIObjectProvider;
     private final ObjectProvider<ClientMealUI> clientMealUIObjectProvider;
+    private final ObjectProvider<IClientOrderDetails> clientOrderDetails;
+    private final ObjectProvider<IModifyOrderForm> modifyOrderForm;
 
     @Override
     public void navigateToPlaceOrderForm() {
@@ -60,6 +66,30 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
         } else {
             clientMealUI.showClientMealList(mealList);
         }
+    }
+
+    @Override
+    public void navigateToOrderDetails(Long id) {
+        UI.getCurrent().navigate(ClientOrderDetailsComponent.class, id);
+        final var clientOrderDetailsView = clientOrderDetails.getIfAvailable();
+        if (clientOrderDetailsView == null) {
+            throw new IllegalStateException("ClientOrderDetailsComponent not found");
+        }
+
+        final var orderWithDetails = order.getOrderWithDetails(id);
+        clientOrderDetailsView.showOrderDetailsFrom(orderWithDetails);
+    }
+
+    @Override
+    public void navigateToUpdateOrderView(Long id) {
+        UI.getCurrent().navigate(ClientModifyOrderFormComponent.class, id);
+        final var modifyOrderView = modifyOrderForm.getIfAvailable();
+        if (modifyOrderView == null) {
+            throw new IllegalStateException("ClientModifyOrderFormComponent not found");
+        }
+
+        final var orderWithDetails = order.getOrderWithDetails(id);
+        modifyOrderView.showOrderModifyForm(orderWithDetails);
     }
 
     @Override
