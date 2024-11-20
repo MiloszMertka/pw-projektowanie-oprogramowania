@@ -50,7 +50,7 @@ public class ClientOrderUI extends VerticalLayout implements IPlaceOrderForm, IC
     @Override
     public void showOrderStatusWindow(OrderStatus status) {
         Dialog popup = new Dialog();
-        popup.add(new Span("Status zamówienia: "+status));
+        popup.add(new Span("Status zamówienia: "+status.getDisplayName()));
         Button closeButton = new Button("Zamknij", event -> popup.close());
         popup.add(closeButton);
         popup.open();

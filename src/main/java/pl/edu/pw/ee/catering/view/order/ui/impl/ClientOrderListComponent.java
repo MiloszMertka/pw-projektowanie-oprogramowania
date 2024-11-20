@@ -46,8 +46,6 @@ public class ClientOrderListComponent extends VerticalLayout implements IClientO
                 .addClassName("primary-color");
         orderGrid.addColumn(AppOrder::getDate).setHeader("Data")
                 .addClassName("primary-color");
-        orderGrid.addColumn((orderWithDetails) -> orderWithDetails.getStatus().getDisplayName()).setHeader("Status")
-                .addClassName("primary-color");
 
         orderGrid.addColumn(new ComponentRenderer<>(order -> {
             VerticalLayout optionsLayout = new VerticalLayout();

@@ -76,12 +76,14 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
         UI.getCurrent().navigate(ClientOrderListComponent.class);
 
         ClientOrderListComponent clientOrderListComponent = clientOrderListComponents.getIfAvailable();
-        if(clientOrderListComponent == null) {
+        if (clientOrderListComponent == null) {
             throw new IllegalStateException("clientOrderListComponentNotFound");
         }
         long clientId = 1L; // MOCK
         OrderList orderList = order.getClientOrderList(clientId);
         clientOrderListComponent.showClientOrderList(orderList);
+    }
+
     public void navigateToOrderDetails(Long id) {
         UI.getCurrent().navigate(ClientOrderDetailsComponent.class, id);
         final var clientOrderDetailsView = clientOrderDetails.getIfAvailable();
