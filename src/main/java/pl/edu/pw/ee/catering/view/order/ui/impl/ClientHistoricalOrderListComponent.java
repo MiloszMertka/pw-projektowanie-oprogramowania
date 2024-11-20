@@ -14,6 +14,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
+import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
+import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
 import pl.edu.pw.ee.catering.view.order.ui.IClientHistoricalOrderList;
@@ -51,18 +53,35 @@ public class ClientHistoricalOrderListComponent extends VerticalLayout implement
             optionsLayout.addClassName("primary-color");
             optionsLayout.getStyle().set("padding", "0");
 
-            Anchor viewDetailsLink = new Anchor("#", "Dodaj opinię");
-            Paragraph changeStatusLink = new Paragraph ( "Złóż reklamację");
-            Button viewDetailsButton = new Button("Wyświetl szczegóły zamówienia", event -> {
-                clientRouter.navigateToOrderDetails(order.getId());
-            });
+            Paragraph addReviewLink = new Paragraph();
+            Paragraph changeStatusLink = new Paragraph();
 
-            changeStatusLink.getStyle()
+            Anchor viewDetailsLink = new Anchor("#", "Dodaj opinię");
+            if(!order.getStatus().equals(OrderStatus.COMPLAINED)) {
+//                Paragraph changeStatusLink = new Paragraph("Złóż reklamację");
+                addReviewLink = new Paragraph("Dodaj opinię");
+             changeStatusLink = new Paragraph ( "Złóż reklamację");
+
+                changeStatusLink.getStyle()
+                        .set("text-decoration", "underline")
+                        .set("cursor", "pointer");
+                changeStatusLink.addClickListener(e -> clientRouter.navigateToPlaceComplaintForm(order.getId()));
+
+                optionsLayout.add(viewDetailsLink, changeStatusLink);
+            }
+            else
+            {
+                optionsLayout.add(viewDetailsLink);
+            }
+
+            addReviewLink.getStyle()
                     .set("text-decoration", "underline")
                     .set("cursor", "pointer");
-            changeStatusLink.addClickListener(e-> clientRouter.navigateToPlaceComplaintForm(order.getId()));
+            addReviewLink.addClickListener(e-> clientRouter.navigateToReviewForm(order.getId()));
 
-            optionsLayout.add(viewDetailsLink, changeStatusLink, viewDetailsButton);
+
+            optionsLayout.add(addReviewLink, changeStatusLink);
+
             return optionsLayout;
         })).setHeader("Opcje");
 

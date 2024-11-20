@@ -11,6 +11,8 @@ import pl.edu.pw.ee.catering.model.meal.repository.MealRepository;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.model.order.repository.OrderRepository;
+import pl.edu.pw.ee.catering.model.savingsaccount.entity.SavingsAccount;
+import pl.edu.pw.ee.catering.model.savingsaccount.repository.SavingsAccountRepository;
 
 import java.util.ArrayList;
 import java.util.Currency;
@@ -24,21 +26,27 @@ public class CateringApplication {
     @Autowired
     MealRepository mealRepository;
 
+    @Autowired
+    SavingsAccountRepository savingsAccountRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(CateringApplication.class, args);
     }
-	
+
   @PostConstruct
   public void init() {
-	AppOrder order1 = new AppOrder(1L, "zamowienie1", "01-01-2024", OrderStatus.IN_PREPARATION, 1L, 1L);
-	AppOrder order2 = new AppOrder(2L, "zamowienie2", "01-01-2023", OrderStatus.FINISHED, 1L, 1L);
-	orderRepository.save(order1);
-	orderRepository.save(order2);
-	
-        Meal meal = new Meal(1L, "meal1", 111,
-            Price.builder().amount(19.99).currency(Currency.getInstance("PLN")).build(),
-            new Image("", ""), new ArrayList<>(), true, "Nothing", 1L);
-        mealRepository.save(meal);
+    AppOrder order1 = new AppOrder(1L, "zamowienie1", "01-01-2024", OrderStatus.IN_PREPARATION, 1L, 1L, 12);
+    AppOrder order2 = new AppOrder(2L, "zamowienie2", "01-01-2023", OrderStatus.FINISHED, 1L, 1L, 12);
+    orderRepository.save(order1);
+    orderRepository.save(order2);
+
+    Meal meal = new Meal(1L, "meal1", 111,
+        Price.builder().amount(19.99).currency(Currency.getInstance("PLN")).build(),
+        new Image("", ""), new ArrayList<>(), true, "Nothing", 1L);
+    mealRepository.save(meal);
+
+    SavingsAccount sv = new SavingsAccount(1L, 12);
+    savingsAccountRepository.save(sv);
   }
 
 }

@@ -79,4 +79,6 @@ public class CateringCompanyImpl implements ICateringCompany {
     public OrderList getClientHistoricalOrderList(Long clientId) {
         return new OrderList(List.of(AppOrder.builder().id(1L).name("Order 1").date("2024-01-01").status(OrderStatus.FINISHED).companyId(1L).build())); // to be replaced
     }
+    @Override
+    public void makeComplainAboutOrder(Long id){order.makeComplainAboutAnOrder(id);}
 }

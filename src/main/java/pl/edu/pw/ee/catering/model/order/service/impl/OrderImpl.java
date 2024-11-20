@@ -10,6 +10,9 @@ import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.model.order.repository.OrderRepository;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 class OrderImpl implements IOrder {
@@ -52,17 +55,23 @@ class OrderImpl implements IOrder {
 
     @Override
     public OrderList getHistoricalOrderList(Long id) {
-        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED)).toList());
+        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED) || x.getStatus().equals(OrderStatus.COMPLAINED)).toList());
     }
 
     @Override
     public OrderList getClientHistoricalOrderList(Long clientId) {
-        return new OrderList(orderRepository.findAllByClientId(clientId).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED)).toList());
+        return new OrderList(orderRepository.findAllByClientId(clientId).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED) || x.getStatus().equals(OrderStatus.COMPLAINED)).toList());
     }
-  
+
     @Override
     public int getOrderPrice() {
-        return 12;
+        return 0;
+    }
+
+    @Override
+    public int getOrderPrice(Long id) {
+        Optional<AppOrder> appOrder = orderRepository.findById(id);
+        return appOrder.map(AppOrder::getPrice).orElse(0);
     }
 
     private OrderWithDetails mapAppOrderToOrderWithDetails(AppOrder order) {
@@ -79,5 +88,11 @@ class OrderImpl implements IOrder {
         var order = orderRepository.findById(id).orElseThrow();
         var status = order.getStatus();
         return  status;
+    }
+    @Override
+    public void makeComplainAboutAnOrder(Long id){
+        var order = orderRepository.findById(id).orElseThrow();
+        changeOrderStatus(order, OrderStatus.COMPLAINED);
+        orderRepository.save(order);
     }
 }

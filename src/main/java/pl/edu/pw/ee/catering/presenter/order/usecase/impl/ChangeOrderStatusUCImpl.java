@@ -16,4 +16,6 @@ public class ChangeOrderStatusUCImpl implements IChangeOrderStatusUc {
     public void changeOrderStatus(Long id, OrderStatus status) {
         order.changeOrderStatus(id, status);
     }
+    @Override
+    public void makeComplain(Long id){order.makeComplainAboutAnOrder(id);}
 }

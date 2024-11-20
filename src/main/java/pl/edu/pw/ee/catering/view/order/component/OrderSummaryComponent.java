@@ -54,7 +54,7 @@ public class OrderSummaryComponent extends VerticalLayout {
         Button payButton = new Button("Zapłać", buttonClickEvent -> proceedToPayment());
         payButton.addClassName("pay-button");
 
-        Button backButton = new Button("Powrót");
+        Button backButton = new Button("Powrót", buttonClickEvent -> goBack());
 
         HorizontalLayout buttonLayout = new HorizontalLayout(payButton, backButton);
         buttonLayout.setSpacing(true);
@@ -69,5 +69,9 @@ public class OrderSummaryComponent extends VerticalLayout {
 
     private void proceedToPayment() {
         placeOrderUC.placeOrder();
+    }
+
+    private void goBack() {
+        getUI().ifPresent(ui -> ui.navigate("/client"));
     }
 }
