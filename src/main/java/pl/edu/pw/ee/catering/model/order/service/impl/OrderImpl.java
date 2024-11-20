@@ -11,6 +11,7 @@ import pl.edu.pw.ee.catering.model.order.repository.OrderRepository;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -63,9 +64,9 @@ class OrderImpl implements IOrder {
     }
   
     @Override
-    public int getOrderPrice() {
-        List<AppOrder> appOrders = orderRepository.findAll();
-        return appOrders.getFirst().getPrice();
+    public int getOrderPrice(Long id) {
+        Optional<AppOrder> appOrder = orderRepository.findById(id);
+        return appOrder.map(AppOrder::getPrice).orElse(0);
     }
 
     private OrderWithDetails mapAppOrderToOrderWithDetails(AppOrder order) {

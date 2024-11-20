@@ -53,10 +53,12 @@ public class ClientHistoricalOrderListComponent extends VerticalLayout implement
             optionsLayout.addClassName("primary-color");
             optionsLayout.getStyle().set("padding", "0");
 
+
             Anchor viewDetailsLink = new Anchor("#", "Dodaj opinię");
             if(!order.getStatus().equals(OrderStatus.COMPLAINED)) {
                 Paragraph changeStatusLink = new Paragraph("Złóż reklamację");
-
+            Paragraph addReviewLink = new Paragraph("Dodaj opinię");
+            Paragraph changeStatusLink = new Paragraph ( "Złóż reklamację");
 
                 changeStatusLink.getStyle()
                         .set("text-decoration", "underline")
@@ -69,6 +71,15 @@ public class ClientHistoricalOrderListComponent extends VerticalLayout implement
             {
                 optionsLayout.add(viewDetailsLink);
             }
+
+            addReviewLink.getStyle()
+                    .set("text-decoration", "underline")
+                    .set("cursor", "pointer");
+            addReviewLink.addClickListener(e-> clientRouter.navigateToReviewForm(order.getId()));
+
+
+            optionsLayout.add(addReviewLink, changeStatusLink);
+
             return optionsLayout;
         })).setHeader("Opcje");
 

@@ -1,7 +1,7 @@
 package pl.edu.pw.ee.catering.model.savingsaccount.service;
 
 public interface ISavingsAccount {
-    boolean checkIsAmountEnough(int orderPrice);
+    boolean checkIsAmountEnough(Long savingsAccountId, int orderPrice);
 
-    void updateSavingsAccount(int orderPrice);
+    void updateSavingsAccount(Long savingsAccountId, int orderPrice);
 }
