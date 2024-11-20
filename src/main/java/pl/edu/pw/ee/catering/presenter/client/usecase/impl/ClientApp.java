@@ -58,12 +58,12 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     public void placeOrder() {
         long orderId = 1L; // MOCK
 
-        int orderPrice = order.getOrderPrice();
-        boolean isAmountEnough = savingsAccount.checkIsAmountEnough(orderPrice);
+        int orderPrice = order.getOrderPrice(orderId);
+        boolean isAmountEnough = savingsAccount.checkIsAmountEnough(orderId, orderPrice);
 
         ClientOrderUI clientOrderUI = getClientOrderUI();
         if (isAmountEnough) {
-            savingsAccount.updateSavingsAccount(orderPrice);
+            savingsAccount.updateSavingsAccount(orderId, orderPrice);
             clientOrderUI.showSuccessForm();
         } else {
             clientOrderUI.showRedirectionForm(orderId);
