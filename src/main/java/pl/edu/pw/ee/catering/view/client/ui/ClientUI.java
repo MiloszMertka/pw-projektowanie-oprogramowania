@@ -28,6 +28,9 @@ public class ClientUI extends VerticalLayout {
             event -> router.navigateToClientMealList());
         add(showClientMealListButton);
 
+        Button clientOrderListButton = new Button("Wyświetl zamówienia klienta",
+                event -> router.navigateToClientOrderList());
+        add(clientOrderListButton);
         Button modifyClientOrderButton = new Button("Modifikuj zamówienie",
             event -> router.navigateToUpdateOrderView(1L));
         add(modifyClientOrderButton);

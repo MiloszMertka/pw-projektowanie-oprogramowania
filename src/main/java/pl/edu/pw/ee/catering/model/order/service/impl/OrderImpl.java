@@ -69,6 +69,11 @@ class OrderImpl implements IOrder {
     }
 
     @Override
+    public OrderList getClientOrderList(Long clientId) {
+        return new OrderList(orderRepository.findAllByClientId(clientId));
+    }
+
+    @Override
     public int getOrderPrice(Long id) {
         Optional<AppOrder> appOrder = orderRepository.findById(id);
         return appOrder.map(AppOrder::getPrice).orElse(0);
