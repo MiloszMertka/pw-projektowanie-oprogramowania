@@ -30,4 +30,7 @@ public class AppOrder {
 
     @Column(nullable = false)
     private Long clientId = 1L;
+
+    @Column(nullable = false)
+    private int price = 12;
 }

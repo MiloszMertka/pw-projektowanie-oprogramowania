@@ -10,6 +10,8 @@ import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.model.order.repository.OrderRepository;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 class OrderImpl implements IOrder {
@@ -62,7 +64,8 @@ class OrderImpl implements IOrder {
   
     @Override
     public int getOrderPrice() {
-        return 12;
+        List<AppOrder> appOrders = orderRepository.findAll();
+        return appOrders.getFirst().getPrice();
     }
 
     private OrderWithDetails mapAppOrderToOrderWithDetails(AppOrder order) {
