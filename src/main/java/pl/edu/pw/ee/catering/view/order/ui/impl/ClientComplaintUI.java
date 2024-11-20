@@ -27,6 +27,8 @@ import pl.edu.pw.ee.catering.model.meal.entity.Price;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
+import pl.edu.pw.ee.catering.presenter.order.usecase.IChangeOrderStatusUc;
+import pl.edu.pw.ee.catering.view.order.ui.IChangeOrderStatus;
 import pl.edu.pw.ee.catering.view.order.ui.IPlaceComplaintForm;
 
 import java.io.IOException;
@@ -43,10 +45,13 @@ import java.util.Objects;
 @CssImport("./styles/order-form/summary-form.css")
 public class ClientComplaintUI extends VerticalLayout implements IPlaceComplaintForm {
     private final ICateringCompanyRouter router;
-    ClientComplaintUI(ICateringCompanyRouter router){
+    private final IChangeOrderStatusUc complainP;
+    ClientComplaintUI(ICateringCompanyRouter router, IChangeOrderStatusUc cp){
         this.router = router;
+        this.complainP=cp;
         //showPlaceComplaintForm(new OrderWithDetails(0,"da","21", OrderStatus.FINISHED));
     }
+
     @Override
     public void showPlaceComplaintForm(Long Id) {
         removeAll();
@@ -73,9 +78,9 @@ public class ClientComplaintUI extends VerticalLayout implements IPlaceComplaint
                 complaintText.getValue();
                 long orderComplaintId = Id;
                 //No
-
+                complainP.makeComplain(orderComplaintId);
                 router.navigateToClientHistoricalOrderList();
-                Notification notification = Notification.show("Zgłoszono rekalmacje");
+                Notification notification = Notification.show("Zgłoszono reklamacje");
                 notification.setDuration(6000);
                 notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS) ;
                 notification.setPosition(Notification.Position.TOP_CENTER);
@@ -87,7 +92,7 @@ public class ClientComplaintUI extends VerticalLayout implements IPlaceComplaint
             router.navigateToClientHistoricalOrderList();
         });
 
-        H1 title = new H1("Rekalmacja");
+        H1 title = new H1("Reklamacja");
         title.addClassName("form-title");
 
 

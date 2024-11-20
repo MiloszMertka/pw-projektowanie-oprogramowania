@@ -55,12 +55,12 @@ class OrderImpl implements IOrder {
 
     @Override
     public OrderList getHistoricalOrderList(Long id) {
-        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED)).toList());
+        return new OrderList(orderRepository.findAllByCompanyId(id).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED) || x.getStatus().equals(OrderStatus.COMPLAINED)).toList());
     }
 
     @Override
     public OrderList getClientHistoricalOrderList(Long clientId) {
-        return new OrderList(orderRepository.findAllByClientId(clientId).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED)).toList());
+        return new OrderList(orderRepository.findAllByClientId(clientId).stream().filter(x -> x.getStatus().equals(OrderStatus.FINISHED) || x.getStatus().equals(OrderStatus.CANCELED) || x.getStatus().equals(OrderStatus.COMPLAINED)).toList());
     }
   
     @Override
@@ -83,5 +83,11 @@ class OrderImpl implements IOrder {
         var order = orderRepository.findById(id).orElseThrow();
         var status = order.getStatus();
         return  status;
+    }
+    @Override
+    public void makeComplainAboutAnOrder(Long id){
+        var order = orderRepository.findById(id).orElseThrow();
+        changeOrderStatus(order, OrderStatus.COMPLAINED);
+        orderRepository.save(order);
     }
 }
