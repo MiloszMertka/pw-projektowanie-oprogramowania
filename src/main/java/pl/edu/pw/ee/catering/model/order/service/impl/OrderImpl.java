@@ -83,4 +83,10 @@ class OrderImpl implements IOrder {
         var status = order.getStatus();
         return  status;
     }
+    @Override
+    public void makeComplainAboutAnOrder(Long id){
+        var order = orderRepository.findById(id).orElseThrow();
+        changeOrderStatus(order, OrderStatus.COMPLAINED);
+        orderRepository.save(order);
+    }
 }

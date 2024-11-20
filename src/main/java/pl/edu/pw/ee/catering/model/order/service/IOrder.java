@@ -20,5 +20,6 @@ public interface IOrder {
     OrderList getClientHistoricalOrderList(Long clientId);
 
     int getOrderPrice();
+    void makeComplainAboutAnOrder(Long id);
 
 }

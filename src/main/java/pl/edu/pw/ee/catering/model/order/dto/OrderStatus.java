@@ -13,8 +13,8 @@ public enum OrderStatus {
     IN_DELIVERY("W dostawie"),
     IN_PREPARATION("W przygotowaniu"),
     RECEIVED("Otrzymane"),
-    PAID("Opłacone");
-
+    PAID("Opłacone"),
+    COMPLAINED("Złożono reklamację");
     private final String displayName;
     OrderStatus(String displayName) {
         this.displayName = displayName;
