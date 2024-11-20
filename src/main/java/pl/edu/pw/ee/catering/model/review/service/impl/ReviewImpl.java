@@ -12,7 +12,7 @@ import pl.edu.pw.ee.catering.model.personaldata.entity.AppPersonalData;
 
 @Service
 @RequiredArgsConstructor
-class ReviewImpl implements IReview {
+public class ReviewImpl implements IReview {
     private final ReviewRepository reviewRepository;
     
     @Override
