@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import pl.edu.pw.ee.catering.model.cateringcompany.service.ICateringCompany;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
+import pl.edu.pw.ee.catering.model.order.service.IOrder;
 import pl.edu.pw.ee.catering.presenter.cateringcompany.usecase.ICateringCompanyRouter;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.DeleteMealComponent;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.EditCompanyMealUI;
@@ -20,6 +21,7 @@ import pl.edu.pw.ee.catering.view.order.ui.impl.*;
 public class CateringCompanyApp implements ICateringCompanyRouter {
 
     private final ICateringCompany cateringCompany;
+    private final IOrder orderC;
     private final ObjectProvider<HistoricalOrderListComponent> historicalOrderListProvider;
     private final ObjectProvider<IOrderDetails> orderDetailsProvider;
     private final ObjectProvider<CateringCompanyMealListUI> cateringCompanyMealUIProvider;
@@ -136,7 +138,7 @@ public class CateringCompanyApp implements ICateringCompanyRouter {
         if(clientHistoricalOrderListComponent == null) {
             throw new IllegalStateException("clientHistoricalOrderListComponentNotFound");
         }
-        OrderList orderList = cateringCompany.getClientHistoricalOrderList(1L);
+        OrderList orderList = orderC.getClientHistoricalOrderList(1L);
         clientHistoricalOrderListComponent.showClientHistoricalOrderList(orderList);
     }
 

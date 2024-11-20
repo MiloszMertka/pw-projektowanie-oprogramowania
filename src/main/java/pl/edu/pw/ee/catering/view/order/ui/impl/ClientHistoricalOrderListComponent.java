@@ -14,6 +14,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.order.dto.OrderList;
+import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.model.order.entity.AppOrder;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
@@ -53,14 +54,21 @@ public class ClientHistoricalOrderListComponent extends VerticalLayout implement
             optionsLayout.getStyle().set("padding", "0");
 
             Anchor viewDetailsLink = new Anchor("#", "Dodaj opinię");
-            Paragraph changeStatusLink = new Paragraph ( "Złóż reklamację");
+            if(!order.getStatus().equals(OrderStatus.COMPLAINED)) {
+                Paragraph changeStatusLink = new Paragraph("Złóż reklamację");
 
-            changeStatusLink.getStyle()
-                    .set("text-decoration", "underline")
-                    .set("cursor", "pointer");
-            changeStatusLink.addClickListener(e-> clientRouter.navigateToPlaceComplaintForm(order.getId()));
 
-            optionsLayout.add(viewDetailsLink, changeStatusLink);
+                changeStatusLink.getStyle()
+                        .set("text-decoration", "underline")
+                        .set("cursor", "pointer");
+                changeStatusLink.addClickListener(e -> clientRouter.navigateToPlaceComplaintForm(order.getId()));
+
+                optionsLayout.add(viewDetailsLink, changeStatusLink);
+            }
+            else
+            {
+                optionsLayout.add(viewDetailsLink);
+            }
             return optionsLayout;
         })).setHeader("Opcje");
 
