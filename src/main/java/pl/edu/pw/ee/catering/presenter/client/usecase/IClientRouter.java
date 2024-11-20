@@ -5,4 +5,5 @@ public interface IClientRouter {
     void navigateToPlaceComplaintForm(Long Id);
     void navigateToClientMealList();
     void navigateToReviewForm(Long Id);
+    void navigateToClientOrderList();
 }

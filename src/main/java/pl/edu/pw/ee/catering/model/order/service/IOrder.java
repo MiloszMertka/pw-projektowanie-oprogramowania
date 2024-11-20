@@ -19,6 +19,7 @@ public interface IOrder {
     OrderStatus getOrderStatus(Long id);
     OrderList getClientHistoricalOrderList(Long clientId);
 
+    OrderList getClientOrderList(Long clientId);
 
     int getOrderPrice();
     void makeComplainAboutAnOrder(Long id);

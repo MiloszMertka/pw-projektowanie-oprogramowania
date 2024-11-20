@@ -8,6 +8,7 @@ import pl.edu.pw.ee.catering.model.cart.service.ICart;
 import pl.edu.pw.ee.catering.model.meal.dto.MealList;
 import pl.edu.pw.ee.catering.model.meal.entity.Meal;
 import pl.edu.pw.ee.catering.model.meal.service.IMeal;
+import pl.edu.pw.ee.catering.model.order.dto.OrderList;
 import pl.edu.pw.ee.catering.model.order.dto.OrderStatus;
 import pl.edu.pw.ee.catering.model.order.service.IOrder;
 import pl.edu.pw.ee.catering.model.savingsaccount.service.ISavingsAccount;
@@ -16,6 +17,7 @@ import pl.edu.pw.ee.catering.presenter.client.usecase.IClientRouter;
 import pl.edu.pw.ee.catering.presenter.client.usecase.IPlaceOrderUC;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.ClientMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientComplaintUI;
+import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderListComponent;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderUI;
 import pl.edu.pw.ee.catering.view.order.ui.impl.ReviewFormUI;
 
@@ -31,6 +33,7 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     private final ObjectProvider<ClientComplaintUI> clientComplaintUIObjectProvider;
     private final ObjectProvider<ReviewFormUI> reviewFormUIObjectProvider;
     private final ObjectProvider<ClientMealUI> clientMealUIObjectProvider;
+    private final ObjectProvider<ClientOrderListComponent> clientOrderListComponents;
 
     @Override
     public void navigateToPlaceOrderForm() {
@@ -60,6 +63,19 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
         } else {
             clientMealUI.showClientMealList(mealList);
         }
+    }
+
+    @Override
+    public void navigateToClientOrderList() {
+        UI.getCurrent().navigate(ClientOrderListComponent.class);
+
+        ClientOrderListComponent clientOrderListComponent = clientOrderListComponents.getIfAvailable();
+        if(clientOrderListComponent == null) {
+            throw new IllegalStateException("clientOrderListComponentNotFound");
+        }
+        long clientId = 1L; // MOCK
+        OrderList orderList = order.getClientOrderList(clientId);
+        clientOrderListComponent.showClientOrderList(orderList);
     }
 
     @Override
