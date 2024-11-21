@@ -8,4 +8,5 @@ public interface IClientRouter {
     void navigateToClientOrderList();
     void navigateToOrderDetails(Long id);
     void navigateToUpdateOrderView(Long id);
+    void navigateToClientHistoricalOrderList();
 }

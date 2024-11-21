@@ -55,22 +55,35 @@ public class ClientHistoricalOrderListComponent extends VerticalLayout implement
 
             Paragraph addReviewLink = new Paragraph();
             Paragraph changeStatusLink = new Paragraph();
+            Paragraph viewDetailsLink = new Paragraph();
 
-            Anchor viewDetailsLink = new Anchor("#", "Dodaj opinię");
+//            Anchor viewDetailsLink = new Anchor("#", "Dodaj opinię");
             if(!order.getStatus().equals(OrderStatus.COMPLAINED)) {
 //                Paragraph changeStatusLink = new Paragraph("Złóż reklamację");
                 addReviewLink = new Paragraph("Dodaj opinię");
              changeStatusLink = new Paragraph ( "Złóż reklamację");
+             viewDetailsLink = new Paragraph("Wyświetl szczegóły");
 
                 changeStatusLink.getStyle()
                         .set("text-decoration", "underline")
                         .set("cursor", "pointer");
                 changeStatusLink.addClickListener(e -> clientRouter.navigateToPlaceComplaintForm(order.getId()));
 
+                viewDetailsLink.getStyle()
+                                .set("text-decoration", "underline")
+                                        .set("cursor", "pointer");
+                viewDetailsLink.addClickListener(e -> clientRouter.navigateToOrderDetails(order.getId()));
+
                 optionsLayout.add(viewDetailsLink, changeStatusLink);
             }
             else
             {
+                viewDetailsLink = new Paragraph("Wyświetl szczegóły");
+                viewDetailsLink.getStyle()
+                        .set("text-decoration", "underline")
+                        .set("cursor", "pointer");
+                viewDetailsLink.addClickListener(e -> clientRouter.navigateToOrderDetails(order.getId()));
+//                viewDetailsLink = new Anchor("#", "ooDodaj opinię");
                 optionsLayout.add(viewDetailsLink);
             }
 

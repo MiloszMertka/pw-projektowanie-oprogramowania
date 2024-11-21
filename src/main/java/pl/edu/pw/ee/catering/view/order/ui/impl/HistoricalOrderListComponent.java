@@ -57,7 +57,7 @@ public class HistoricalOrderListComponent extends VerticalLayout implements IHis
 
         orderGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS, GridVariant.LUMO_ROW_STRIPES);
 
-        Button closeButton = new Button("Zamknij", event -> UI.getCurrent().navigate(""));
+        Button closeButton = new Button("Zamknij", event -> UI.getCurrent().navigate("/client"));
         closeButton.addClassName("secondary-button");
 
         add(header, orderGrid, closeButton);

@@ -11,14 +11,17 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import pl.edu.pw.ee.catering.model.order.dto.OrderWithDetails;
 import pl.edu.pw.ee.catering.view.order.ui.IClientOrderDetails;
+import pl.edu.pw.ee.catering.view.order.ui.IClientOrderStatus;
 
 @UIScope
 @SpringComponent
 @Route("client-order-details")
 public class ClientOrderDetailsComponent extends VerticalLayout implements IClientOrderDetails, HasUrlParameter<Long> {
     private Long orderId;
+    private final IClientOrderStatus status;
 
-    public ClientOrderDetailsComponent() {
+    public ClientOrderDetailsComponent(IClientOrderStatus status) {
+        this.status = status;
         setSpacing(true);
         setPadding(true);
     }
@@ -39,6 +42,14 @@ public class ClientOrderDetailsComponent extends VerticalLayout implements IClie
             add(new Text("Nie znaleziono zamówienia"));
         }
 
+        Button button = new Button(
+                "Status zamówienia",
+                e -> {
+                    assert order != null;
+                    status.showOrderStatusWindow(order.getStatus());
+                }
+        );
+        add(button);
 
         Button backButton = new Button(
             "Zamknij",

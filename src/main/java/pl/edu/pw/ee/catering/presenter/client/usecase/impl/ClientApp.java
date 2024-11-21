@@ -18,12 +18,7 @@ import pl.edu.pw.ee.catering.presenter.client.usecase.IPlaceOrderUC;
 import pl.edu.pw.ee.catering.view.meal.ui.impl.ClientMealUI;
 import pl.edu.pw.ee.catering.view.order.ui.IClientOrderDetails;
 import pl.edu.pw.ee.catering.view.order.ui.IModifyOrderForm;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ClientComplaintUI;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderListComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ClientModifyOrderFormComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderDetailsComponent;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ClientOrderUI;
-import pl.edu.pw.ee.catering.view.order.ui.impl.ReviewFormUI;
+import pl.edu.pw.ee.catering.view.order.ui.impl.*;
 
 @Component
 @RequiredArgsConstructor
@@ -40,6 +35,7 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
     private final ObjectProvider<ClientOrderListComponent> clientOrderListComponents;
     private final ObjectProvider<IClientOrderDetails> clientOrderDetails;
     private final ObjectProvider<IModifyOrderForm> modifyOrderForm;
+    private final ObjectProvider<ClientHistoricalOrderListComponent> clientHistoricalOrderListComponents;
 
     @Override
     public void navigateToPlaceOrderForm() {
@@ -105,6 +101,18 @@ public class ClientApp implements IClientRouter, IPlaceOrderUC, IAddMealToCartUC
 
         final var orderWithDetails = order.getOrderWithDetails(id);
         modifyOrderView.showOrderModifyForm(orderWithDetails);
+    }
+
+    @Override
+    public void navigateToClientHistoricalOrderList() {
+        UI.getCurrent().navigate(ClientHistoricalOrderListComponent.class);
+
+        ClientHistoricalOrderListComponent clientHistoricalOrderListComponent = clientHistoricalOrderListComponents.getIfAvailable();
+        if(clientHistoricalOrderListComponent == null) {
+            throw new IllegalStateException("clientHistoricalOrderListComponentNotFound");
+        }
+        OrderList orderList = order.getClientHistoricalOrderList(1L);
+        clientHistoricalOrderListComponent.showClientHistoricalOrderList(orderList);
     }
 
     @Override
